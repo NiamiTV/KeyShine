@@ -53,7 +53,6 @@ namespace KSP_LogiRGB
                         scheme = flightSceneManager.getScheme();
                         break;
                     case GameScenes.EDITOR:
-                        Debug.Log("HighLogic.LoadedScene == GameScenes.EDITOR");
                         scheme = vabSceneManager.getScheme();
                         break;
                     default:

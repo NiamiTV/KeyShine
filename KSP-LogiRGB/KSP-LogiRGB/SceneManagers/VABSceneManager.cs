@@ -19,7 +19,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// <returns>The finalized color scheme</returns>
         public ColorScheme getScheme()
         {
-            Debug.Log("getScheme()");
             if (currentColorScheme == null)
             {
                 reset();
@@ -35,7 +34,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void update()
         {
-            Debug.Log("update()");
             updatePlacementState();
             updateToggleables();
         }
@@ -45,7 +43,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void updatePlacementState()
         {
-            Debug.Log("updatePlacementState()");
             currentColorScheme.SetKeysToColor(new[]
             {
                 GameSettings.Editor_modePlace.primary.code, GameSettings.Editor_modeOffset.primary.code,
@@ -76,7 +73,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void updateToggleables()
         {
-            Debug.Log("updateToggleables()");
             currentColorScheme.SetKeysToColor(
                 new[] {GameSettings.Editor_toggleSymMode.primary.code, GameSettings.Editor_toggleAngleSnap.primary.code },
                 Color.red);
@@ -100,7 +96,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void reset()
         {
-            Debug.Log("reset()");
             currentColorScheme = new VabScheme();
         }
     }

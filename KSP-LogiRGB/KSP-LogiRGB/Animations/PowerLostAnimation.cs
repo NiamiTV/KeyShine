@@ -58,12 +58,27 @@ namespace KSP_LogiRGB
             if (HighLogic.LoadedScene != GameScenes.FLIGHT)
                 return true;
 
-            /// Check if the vessel needs power, and if empty, continue blinking
+            /// Get current vessel charge level
             double electricCharge, maxElectricCharge;
             FlightGlobals.ActiveVessel.GetConnectedResourceTotals(
                 PartResourceLibrary.Instance.resourceDefinitions["ElectricCharge"].id,
                 out electricCharge, out maxElectricCharge);
-            return electricCharge > 0.0001;
+
+            if (electricCharge > 0.0001)
+            {
+                /// Charge available
+                return true;
+            }
+            else if (maxElectricCharge < 0.0001)
+            {
+                /// No charge stored on ship
+                return true;
+            }
+            else
+            {
+                /// Charge depleted - continue animation
+                return false;
+            }
         }
     }
 }
