@@ -1,15 +1,18 @@
 # KSP Logitech RGB Control
 
-**[KSP Community Forum Thread](http://forum.kerbalspaceprogram.com/index.php?/topic/137859-11-ksp-logitech-rgb-control-v101-2016-22-04/)**
+**[KSP Community Forum Thread](https://forum.kerbalspaceprogram.com/index.php?/topic/169895-131-ksp-logitech-rgb-control-v102-2018-01-21/)**
+
+**[Old Forum Thread by Kaeltis](http://forum.kerbalspaceprogram.com/index.php?/topic/137859-11-ksp-logitech-rgb-control-v101-2016-22-04/)**
 
 Allows Kerbal Space Program to modify the lighting on your Logitech RGB Keyboard.
 Lights up your keyboard to make playing Kerbal Space Program a lot easier.
 
-**This is a fork of @cguckes' awesome ksp-chroma plugin - if you have a Razer keyboard, check it out: https://github.com/cguckes/ksp-chroma**
+**This is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to both for their significant work of which this fork is only a moderate update.**
 
 The mod is still very beta, so let me know if you experience any difficulties when using it.
 
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
+
 ##### MiniAVC
 
 This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogram.com/threads/79745). If you opt-in, it will use the internet to check whether there is a new version available. Data is only read from the internet and no personal information is sent. For a more comprehensive version checking experience, please download the [KSP-AVC Plugin](http://forum.kerbalspaceprogram.com/threads/79745).
