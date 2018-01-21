@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KSP_LogiRGB.ColorSchemes;
 using UnityEngine;
+using KSP.UI.Screens;
 
 namespace KSP_LogiRGB.SceneManagers
 {
@@ -13,18 +14,18 @@ namespace KSP_LogiRGB.SceneManagers
     {
         private static readonly KeyCode[] rotation =
         {
-            GameSettings.ROLL_LEFT.primary,
-            GameSettings.ROLL_RIGHT.primary,
-            GameSettings.PITCH_DOWN.primary,
-            GameSettings.PITCH_UP.primary,
-            GameSettings.YAW_LEFT.primary,
-            GameSettings.YAW_RIGHT.primary
+            GameSettings.ROLL_LEFT.primary.code,
+            GameSettings.ROLL_RIGHT.primary.code,
+            GameSettings.PITCH_DOWN.primary.code,
+            GameSettings.PITCH_UP.primary.code,
+            GameSettings.YAW_LEFT.primary.code,
+            GameSettings.YAW_RIGHT.primary.code
         };
 
         private static readonly KeyCode[] timewarp =
         {
-            GameSettings.TIME_WARP_INCREASE.primary,
-            GameSettings.TIME_WARP_DECREASE.primary
+            GameSettings.TIME_WARP_INCREASE.primary.code,
+            GameSettings.TIME_WARP_DECREASE.primary.code
         };
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace KSP_LogiRGB.SceneManagers
             actionGroups.Clear();
             foreach (var group in Enum.GetValues(typeof(KSPActionGroup)).Cast<KSPActionGroup>())
             {
-                if (!actionGroups.ContainsKey(group))
+                if (!actionGroups.ContainsKey(group) && group != KSPActionGroup.REPLACEWITHDEFAULT)
                 {
                     actionGroups.Add(group, false);
                 }
@@ -103,6 +104,7 @@ namespace KSP_LogiRGB.SceneManagers
                 currentColorScheme = new FlightScheme();
                 recalculateResources();
                 updateToggleables();
+                updateStaging();
             }
             displayVesselHeight();
         }
@@ -123,8 +125,15 @@ namespace KSP_LogiRGB.SceneManagers
             }
 
             foreach (var action in allActionsList)
+            {
                 foreach (var group in Enum.GetValues(typeof(KSPActionGroup)).Cast<KSPActionGroup>())
-                    actionGroups[group] = actionGroups[group] || ((action.actionGroup & group) == group);
+                {
+                    if (group != KSPActionGroup.REPLACEWITHDEFAULT)
+                    {
+                        actionGroups[group] = actionGroups[group] || ((action.actionGroup & group) == group);
+                    }
+                }
+            }
 
             ///KSP ignores RCS and SAS action groups so we enable them manually
             actionGroups[KSPActionGroup.RCS] = true;
@@ -136,9 +145,13 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void recalculateResources()
         {
-            var resources = currentVessel.GetActiveResources();
-
-            resources.ForEach(res => { showGauge(res.info.name, res.amount, res.maxAmount); });
+            IEnumerator<PartResourceDefinition> enumerator = PartResourceLibrary.Instance.resourceDefinitions.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                double amount, maxAmount;
+                currentVessel.GetConnectedResourceTotals(enumerator.Current.id, out amount, out maxAmount);
+                showGauge(enumerator.Current.name, amount, maxAmount);
+            }
         }
 
         /// <summary>
@@ -222,20 +235,26 @@ namespace KSP_LogiRGB.SceneManagers
                 if (agroup.Key != KSPActionGroup.None)
                 {
                     if (!agroup.Value)
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary,
+                    {
+                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Color.black);
+                    }
                     else if (currentVessel.ActionGroups[agroup.Key])
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary,
+                    {
+                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Config.Instance.actionGroupConf[agroup.Key].Value.Value);
+                    }
                     else
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary,
+                    {
+                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Config.Instance.actionGroupConf[agroup.Key].Value.Key);
+                    }
                 }
             }
 
             /// Colors the map view key
             currentColorScheme.SetKeyToColor(
-                GameSettings.MAP_VIEW_TOGGLE.primary,
+                GameSettings.MAP_VIEW_TOGGLE.primary.code,
                 MapView.MapIsEnabled ? Config.Instance.redGreenToggle.Value : Config.Instance.redGreenToggle.Key
                 );
 
@@ -243,24 +262,24 @@ namespace KSP_LogiRGB.SceneManagers
             if (FlightInputHandler.fetch.precisionMode)
             {
                 currentColorScheme.SetKeysToColor(rotation, Color.yellow);
-                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary, Color.green);
+                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary.code, Color.green);
             }
             else
             {
                 currentColorScheme.SetKeysToColor(rotation, Color.white);
-                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary, Color.red);
+                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary.code, Color.red);
             }
 
             /// Lights the quicksave button green, if it is enabled, red otherwise
             if (currentVessel.IsClearToSave() == ClearToSaveStatus.CLEAR ||
                 currentVessel.IsClearToSave() == ClearToSaveStatus.NOT_IN_ATMOSPHERE ||
                 currentVessel.IsClearToSave() == ClearToSaveStatus.NOT_UNDER_ACCELERATION)
-                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary, Color.green);
+                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary.code, Color.green);
             else
-                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary, Color.red);
+                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary.code, Color.red);
 
             /// Lights up the quickload button
-            currentColorScheme.SetKeyToColor(GameSettings.QUICKLOAD.primary, Color.green);
+            currentColorScheme.SetKeyToColor(GameSettings.QUICKLOAD.primary.code, Color.green);
 
             /// Colors the timewarp buttons red and green for physics and on-rails warp
             if (TimeWarp.WarpMode == TimeWarp.Modes.HIGH)
@@ -272,20 +291,56 @@ namespace KSP_LogiRGB.SceneManagers
             switch (FlightCamera.fetch.mode)
             {
                 case FlightCamera.Modes.AUTO:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary, Color.green);
+                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.green);
                     break;
                 case FlightCamera.Modes.CHASE:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary, Color.blue);
+                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.blue);
                     break;
                 case FlightCamera.Modes.FREE:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary, Color.yellow);
+                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.yellow);
                     break;
                 case FlightCamera.Modes.LOCKED:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary, Color.cyan);
+                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.cyan);
                     break;
                 default:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary, Color.white);
+                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.white);
                     break;
+            }
+        }
+
+        /// <summary>
+        ///     Updates staging key.
+        /// </summary>
+        private void updateStaging()
+        {
+            /// Solid black if staging is complete
+            if (currentVessel.currentStage == 0)
+            {
+                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
+            }
+            /// Solid purple if staging is locked
+            else if (InputLockManager.IsLocked(ControlTypes.STAGING))
+            {
+                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.magenta);
+            }
+            /// Solid yellow if staging is in cooldown
+            else if (!StageManager.CanSeparate)
+            {
+                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.yellow);
+            }
+            /// Blinking green if ready to stage
+            else
+            {
+                double frequency = 0.333;
+                bool ledOn = (int)(Math.Truncate(Time.time / frequency)) % 2 != 0;
+                if (ledOn)
+                {
+                    currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.green);
+                }
+                else
+                {
+                    currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
+                }
             }
         }
 
@@ -326,7 +381,7 @@ namespace KSP_LogiRGB.SceneManagers
         /// <returns></returns>
         private double calculateDistanceFromGround()
         {
-            var CoM = currentVessel.findWorldCenterOfMass(); //Gets CoM
+            var CoM = currentVessel.CoM; //Gets centre of mass
             Vector3 up = FlightGlobals.getUpAxis(CoM); //Gets up axis (needed for the raycast)
             var ASL = FlightGlobals.getAltitudeAtPos(CoM);
             RaycastHit craft;

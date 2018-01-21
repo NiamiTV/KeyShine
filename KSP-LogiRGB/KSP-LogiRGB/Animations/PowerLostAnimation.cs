@@ -28,7 +28,7 @@ namespace KSP_LogiRGB
             KeyCode[] lightningKeys =
             {
                 /// Left lightning
-                KeyCode.F2, KeyCode.Alpha3, KeyCode.W, KeyCode.E, KeyCode.R, KeyCode.D, KeyCode.X, KeyCode.LeftAlt,
+                KeyCode.F3, KeyCode.Alpha3, KeyCode.W, KeyCode.E, KeyCode.R, KeyCode.D, KeyCode.X, KeyCode.LeftAlt,
 
                 /// Right lightning
                 KeyCode.F9, KeyCode.Alpha0, KeyCode.O, KeyCode.P, KeyCode.LeftBracket, KeyCode.Semicolon, KeyCode.Period,
@@ -59,13 +59,11 @@ namespace KSP_LogiRGB
                 return true;
 
             /// Check if the vessel needs power, and if empty, continue blinking
-            var resource = FlightGlobals.ActiveVessel.GetActiveResources()
-                .Where(res => res.info.name.Equals("ElectricCharge"));
-            if (resource.Count() > 0)
-                return resource.First().amount > 0.0001;
-
-            /// No energy stored on the ship, end the animation.
-            return true;
+            double electricCharge, maxElectricCharge;
+            FlightGlobals.ActiveVessel.GetConnectedResourceTotals(
+                PartResourceLibrary.Instance.resourceDefinitions["ElectricCharge"].id,
+                out electricCharge, out maxElectricCharge);
+            return electricCharge > 0.0001;
         }
     }
 }

@@ -31,11 +31,14 @@ namespace KSP_LogiRGB
             dataDrains.Add(new LogitechDrain());
         }
 
+        int count = 0;
         /// <summary>
         ///     Called by unity on every physics frame.
         /// </summary>
         private void Update()
         {
+            count++;
+            Debug.Log(count);
             ColorScheme scheme;
 
             if (AnimationManager.Instance.animationRunning())
@@ -50,6 +53,7 @@ namespace KSP_LogiRGB
                         scheme = flightSceneManager.getScheme();
                         break;
                     case GameScenes.EDITOR:
+                        Debug.Log("HighLogic.LoadedScene == GameScenes.EDITOR");
                         scheme = vabSceneManager.getScheme();
                         break;
                     default:
