@@ -30,15 +30,13 @@ namespace KSP_LogiRGB
             fetch = this;
             dataDrains.Add(new LogitechDrain());
         }
-
-        int count = 0;
+        
         /// <summary>
         ///     Called by unity on every physics frame.
         /// </summary>
         private void Update()
         {
-            count++;
-            Debug.Log(count);
+            
             ColorScheme scheme;
 
             if (AnimationManager.Instance.animationRunning())
