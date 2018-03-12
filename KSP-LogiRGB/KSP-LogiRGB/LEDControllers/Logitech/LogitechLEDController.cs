@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using KSP_LogiRGB.ColorSchemes;
-using KSP_LogiRGB.Logitech;
 using UnityEngine;
+using static KSP_LogiRGB.LEDControllers.Logitech.LogitechSDK;
 
 namespace KSP_LogiRGB.LEDControllers.Logitech
 {
@@ -11,150 +11,150 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
         /// <summary>
         ///     Unity <c>KeyCode</c>s to Logitech layout translation dictionary
         /// </summary>
-        private static readonly Dictionary<KeyCode, LEDControl.Keys> KeyMapping =
-            new Dictionary<KeyCode, LEDControl.Keys>
+        private static readonly Dictionary<KeyCode, Keys> KeyMapping =
+            new Dictionary<KeyCode, Keys>
             {
-                {KeyCode.A, LEDControl.Keys.A},
-                {KeyCode.Alpha0, LEDControl.Keys.Zero},
-                {KeyCode.Alpha1, LEDControl.Keys.One},
-                {KeyCode.Alpha2, LEDControl.Keys.Two},
-                {KeyCode.Alpha3, LEDControl.Keys.Three},
-                {KeyCode.Alpha4, LEDControl.Keys.Four},
-                {KeyCode.Alpha5, LEDControl.Keys.Five},
-                {KeyCode.Alpha6, LEDControl.Keys.Six},
-                {KeyCode.Alpha7, LEDControl.Keys.Seven},
-                {KeyCode.Alpha8, LEDControl.Keys.Eight},
-                {KeyCode.Alpha9, LEDControl.Keys.Nine},
+                {KeyCode.A, Keys.A},
+                {KeyCode.Alpha0, Keys.Zero},
+                {KeyCode.Alpha1, Keys.One},
+                {KeyCode.Alpha2, Keys.Two},
+                {KeyCode.Alpha3, Keys.Three},
+                {KeyCode.Alpha4, Keys.Four},
+                {KeyCode.Alpha5, Keys.Five},
+                {KeyCode.Alpha6, Keys.Six},
+                {KeyCode.Alpha7, Keys.Seven},
+                {KeyCode.Alpha8, Keys.Eight},
+                {KeyCode.Alpha9, Keys.Nine},
                 // Not sure if this will actually work on a European keyboard.
-                {KeyCode.AltGr, LEDControl.Keys.RightAlt},
+                {KeyCode.AltGr, Keys.RightAlt},
                 //{ KeyCode.Ampersand, keyboardNames.D7 },
                 //{ KeyCode.Asterisk, keyboardNames.D8 },
                 // { KeyCode.At, keyboardNames.OemApostrophe }, blinking
 
-                {KeyCode.B, LEDControl.Keys.B},
-                {KeyCode.BackQuote, LEDControl.Keys.Tilde},
-                {KeyCode.Backslash, LEDControl.Keys.Backslash},
-                {KeyCode.Backspace, LEDControl.Keys.Backspace},
+                {KeyCode.B, Keys.B},
+                {KeyCode.BackQuote, Keys.Tilde},
+                {KeyCode.Backslash, Keys.Backslash},
+                {KeyCode.Backspace, Keys.Backspace},
                 //{ KeyCode.Break, LEDControl.Keys.PauseBreak },
 
-                {KeyCode.C, LEDControl.Keys.C},
-                {KeyCode.CapsLock, LEDControl.Keys.CapsLock},
+                {KeyCode.C, Keys.C},
+                {KeyCode.CapsLock, Keys.CapsLock},
                 //{ KeyCode.Caret, keyboardNames.D6 },
                 //{ KeyCode.Colon, keyboardNames.OemPeriod },
-                {KeyCode.Comma, LEDControl.Keys.Comma},
-                {KeyCode.D, LEDControl.Keys.D},
-                {KeyCode.Delete, LEDControl.Keys.KeyboardDelete},
+                {KeyCode.Comma, Keys.Comma},
+                {KeyCode.D, Keys.D},
+                {KeyCode.Delete, Keys.KeyboardDelete},
                 //{ KeyCode.Dollar, keyboardNames.D4 },
                 //{ KeyCode.DoubleQuote, keyboardNames.D2 },
-                {KeyCode.DownArrow, LEDControl.Keys.ArrowDown},
-                {KeyCode.E, LEDControl.Keys.E},
-                {KeyCode.End, LEDControl.Keys.End},
-                {KeyCode.Equals, LEDControl.Keys.KeyboardEquals},
-                {KeyCode.Escape, LEDControl.Keys.Esc},
+                {KeyCode.DownArrow, Keys.ArrowDown},
+                {KeyCode.E, Keys.E},
+                {KeyCode.End, Keys.End},
+                {KeyCode.Equals, Keys.KeyboardEquals},
+                {KeyCode.Escape, Keys.Esc},
                 //{ KeyCode.Exclaim, keyboardNames.D1 },
 
-                {KeyCode.F, LEDControl.Keys.F},
-                {KeyCode.F1, LEDControl.Keys.F1},
-                {KeyCode.F2, LEDControl.Keys.F2},
-                {KeyCode.F3, LEDControl.Keys.F3},
-                {KeyCode.F4, LEDControl.Keys.F4},
-                {KeyCode.F5, LEDControl.Keys.F5},
-                {KeyCode.F6, LEDControl.Keys.F6},
-                {KeyCode.F7, LEDControl.Keys.F7},
-                {KeyCode.F8, LEDControl.Keys.F8},
-                {KeyCode.F9, LEDControl.Keys.F9},
-                {KeyCode.F10, LEDControl.Keys.F10},
-                {KeyCode.F11, LEDControl.Keys.F11},
-                {KeyCode.F12, LEDControl.Keys.F12},
-                {KeyCode.G, LEDControl.Keys.G},
-                {KeyCode.Greater, LEDControl.Keys.Period},
+                {KeyCode.F, Keys.F},
+                {KeyCode.F1, Keys.F1},
+                {KeyCode.F2, Keys.F2},
+                {KeyCode.F3, Keys.F3},
+                {KeyCode.F4, Keys.F4},
+                {KeyCode.F5, Keys.F5},
+                {KeyCode.F6, Keys.F6},
+                {KeyCode.F7, Keys.F7},
+                {KeyCode.F8, Keys.F8},
+                {KeyCode.F9, Keys.F9},
+                {KeyCode.F10, Keys.F10},
+                {KeyCode.F11, Keys.F11},
+                {KeyCode.F12, Keys.F12},
+                {KeyCode.G, Keys.G},
+                {KeyCode.Greater, Keys.Period},
 
-                {KeyCode.H, LEDControl.Keys.H},
+                {KeyCode.H, Keys.H},
                 //{ KeyCode.Hash, keyboardNames.EurPound },
-                {KeyCode.Home, LEDControl.Keys.Home},
-                {KeyCode.I, LEDControl.Keys.I},
-                {KeyCode.Insert, LEDControl.Keys.Insert},
-                {KeyCode.J, LEDControl.Keys.J},
-                {KeyCode.K, LEDControl.Keys.K},
-                {KeyCode.Keypad0, LEDControl.Keys.NumZero},
-                {KeyCode.Keypad1, LEDControl.Keys.NumOne},
-                {KeyCode.Keypad2, LEDControl.Keys.NumTwo},
-                {KeyCode.Keypad3, LEDControl.Keys.NumThree},
-                {KeyCode.Keypad4, LEDControl.Keys.NumFour},
-                {KeyCode.Keypad5, LEDControl.Keys.NumFive},
-                {KeyCode.Keypad6, LEDControl.Keys.NumSix},
-                {KeyCode.Keypad7, LEDControl.Keys.NumSeven},
-                {KeyCode.Keypad8, LEDControl.Keys.NumEight},
-                {KeyCode.Keypad9, LEDControl.Keys.NumNine},
-                {KeyCode.KeypadDivide, LEDControl.Keys.NumSlash},
-                {KeyCode.KeypadEnter, LEDControl.Keys.NumEnter},
-                {KeyCode.KeypadMinus, LEDControl.Keys.NumMinus},
-                {KeyCode.KeypadMultiply, LEDControl.Keys.NumAsterisk},
-                {KeyCode.KeypadPeriod, LEDControl.Keys.NumPeriod},
-                {KeyCode.KeypadPlus, LEDControl.Keys.NumPlus},
-                {KeyCode.L, LEDControl.Keys.L},
-                {KeyCode.LeftAlt, LEDControl.Keys.LeftAlt},
+                {KeyCode.Home, Keys.Home},
+                {KeyCode.I, Keys.I},
+                {KeyCode.Insert, Keys.Insert},
+                {KeyCode.J, Keys.J},
+                {KeyCode.K, Keys.K},
+                {KeyCode.Keypad0, Keys.NumZero},
+                {KeyCode.Keypad1, Keys.NumOne},
+                {KeyCode.Keypad2, Keys.NumTwo},
+                {KeyCode.Keypad3, Keys.NumThree},
+                {KeyCode.Keypad4, Keys.NumFour},
+                {KeyCode.Keypad5, Keys.NumFive},
+                {KeyCode.Keypad6, Keys.NumSix},
+                {KeyCode.Keypad7, Keys.NumSeven},
+                {KeyCode.Keypad8, Keys.NumEight},
+                {KeyCode.Keypad9, Keys.NumNine},
+                {KeyCode.KeypadDivide, Keys.NumSlash},
+                {KeyCode.KeypadEnter, Keys.NumEnter},
+                {KeyCode.KeypadMinus, Keys.NumMinus},
+                {KeyCode.KeypadMultiply, Keys.NumAsterisk},
+                {KeyCode.KeypadPeriod, Keys.NumPeriod},
+                {KeyCode.KeypadPlus, Keys.NumPlus},
+                {KeyCode.L, Keys.L},
+                {KeyCode.LeftAlt, Keys.LeftAlt},
                 //{ KeyCode.LeftApple, keyboardNames.LeftAlt }, removed due to blinking issues
-                {KeyCode.LeftArrow, LEDControl.Keys.ArrowLeft},
-                {KeyCode.LeftBracket, LEDControl.Keys.OpenBracket},
+                {KeyCode.LeftArrow, Keys.ArrowLeft},
+                {KeyCode.LeftBracket, Keys.OpenBracket},
                 //{ KeyCode.LeftCommand, keyboardNames.LeftAlt }, !!!! Duplicate of RightApple
-                {KeyCode.LeftControl, LEDControl.Keys.LeftControl},
+                {KeyCode.LeftControl, Keys.LeftControl},
                 //{ KeyCode.LeftParen, keyboardNames.D9 },
-                {KeyCode.LeftShift, LEDControl.Keys.LeftShift},
-                {KeyCode.LeftWindows, LEDControl.Keys.LeftWindows},
-                {KeyCode.Less, LEDControl.Keys.Comma},
+                {KeyCode.LeftShift, Keys.LeftShift},
+                {KeyCode.LeftWindows, Keys.LeftWindows},
+                {KeyCode.Less, Keys.Comma},
 
-                {KeyCode.M, LEDControl.Keys.M},
-                {KeyCode.Menu, LEDControl.Keys.ApplicationSelect},
-                {KeyCode.Minus, LEDControl.Keys.Minus},
-                {KeyCode.N, LEDControl.Keys.N},
-                {KeyCode.Numlock, LEDControl.Keys.NumLock},
-                {KeyCode.O, LEDControl.Keys.O},
-                {KeyCode.P, LEDControl.Keys.P},
-                {KeyCode.PageDown, LEDControl.Keys.PageDown},
-                {KeyCode.PageUp, LEDControl.Keys.PageUp},
-                {KeyCode.Pause, LEDControl.Keys.PauseBreak},
-                {KeyCode.Period, LEDControl.Keys.Period},
-                {KeyCode.Plus, LEDControl.Keys.KeyboardEquals},
-                {KeyCode.Print, LEDControl.Keys.PrintScreen},
-                {KeyCode.Q, LEDControl.Keys.Q},
-                {KeyCode.Question, LEDControl.Keys.ForwardSlash},
-                {KeyCode.Quote, LEDControl.Keys.Apostrophe},
-                {KeyCode.R, LEDControl.Keys.R},
-                {KeyCode.Return, LEDControl.Keys.Enter},
-                {KeyCode.RightAlt, LEDControl.Keys.RightAlt},
+                {KeyCode.M, Keys.M},
+                {KeyCode.Menu, Keys.ApplicationSelect},
+                {KeyCode.Minus, Keys.Minus},
+                {KeyCode.N, Keys.N},
+                {KeyCode.Numlock, Keys.NumLock},
+                {KeyCode.O, Keys.O},
+                {KeyCode.P, Keys.P},
+                {KeyCode.PageDown, Keys.PageDown},
+                {KeyCode.PageUp, Keys.PageUp},
+                {KeyCode.Pause, Keys.PauseBreak},
+                {KeyCode.Period, Keys.Period},
+                {KeyCode.Plus, Keys.KeyboardEquals},
+                {KeyCode.Print, Keys.PrintScreen},
+                {KeyCode.Q, Keys.Q},
+                {KeyCode.Question, Keys.ForwardSlash},
+                {KeyCode.Quote, Keys.Apostrophe},
+                {KeyCode.R, Keys.R},
+                {KeyCode.Return, Keys.Enter},
+                {KeyCode.RightAlt, Keys.RightAlt},
                 //{ KeyCode.RightApple, LEDControl.Keys.RightAlt }, removed due to blinking issues
-                {KeyCode.RightArrow, LEDControl.Keys.ArrowRight},
-                {KeyCode.RightBracket, LEDControl.Keys.CloseBracket},
+                {KeyCode.RightArrow, Keys.ArrowRight},
+                {KeyCode.RightBracket, Keys.CloseBracket},
                 //{ KeyCode.RightCommand, LEDControl.Keys.RightAlt }, !!!! Duplicate of RightApple
-                {KeyCode.RightControl, LEDControl.Keys.RightControl},
+                {KeyCode.RightControl, Keys.RightControl},
                 //{ KeyCode.RightParen, LEDControl.Keys.D0 },
-                {KeyCode.RightShift, LEDControl.Keys.RightShift},
-                {KeyCode.RightWindows, LEDControl.Keys.RightWindows},
-                {KeyCode.S, LEDControl.Keys.S},
-                {KeyCode.ScrollLock, LEDControl.Keys.ScrollLock},
-                {KeyCode.Semicolon, LEDControl.Keys.Semicolon},
-                {KeyCode.Slash, LEDControl.Keys.ForwardSlash},
-                {KeyCode.Space, LEDControl.Keys.Space},
-                {KeyCode.SysReq, LEDControl.Keys.PrintScreen},
+                {KeyCode.RightShift, Keys.RightShift},
+                {KeyCode.RightWindows, Keys.RightWindows},
+                {KeyCode.S, Keys.S},
+                {KeyCode.ScrollLock, Keys.ScrollLock},
+                {KeyCode.Semicolon, Keys.Semicolon},
+                {KeyCode.Slash, Keys.ForwardSlash},
+                {KeyCode.Space, Keys.Space},
+                {KeyCode.SysReq, Keys.PrintScreen},
 
-                {KeyCode.T, LEDControl.Keys.T},
-                {KeyCode.Tab, LEDControl.Keys.Tab},
-                {KeyCode.U, LEDControl.Keys.U},
-                {KeyCode.Underscore, LEDControl.Keys.Minus},
-                {KeyCode.UpArrow, LEDControl.Keys.ArrowUp},
-                {KeyCode.V, LEDControl.Keys.V},
-                {KeyCode.W, LEDControl.Keys.W},
-                {KeyCode.X, LEDControl.Keys.X},
-                {KeyCode.Y, LEDControl.Keys.Y},
-                {KeyCode.Z, LEDControl.Keys.Z}
+                {KeyCode.T, Keys.T},
+                {KeyCode.Tab, Keys.Tab},
+                {KeyCode.U, Keys.U},
+                {KeyCode.Underscore, Keys.Minus},
+                {KeyCode.UpArrow, Keys.ArrowUp},
+                {KeyCode.V, Keys.V},
+                {KeyCode.W, Keys.W},
+                {KeyCode.X, Keys.X},
+                {KeyCode.Y, Keys.Y},
+                {KeyCode.Z, Keys.Z}
             };
 
         public LogitechLEDController()
         {
-            LEDControl.LogiLedInit();
-            LEDControl.LogiLedSetTargetDevice(LEDControl.LogiDevicetypePerkeyRGB);
-            LEDControl.LogiLedSetLighting(0, 0, 0);
+            LogiLedInit();
+            LogiLedSetTargetDevice(LogiDevicetypePerkeyRGB);
+            LogiLedSetLighting(0, 0, 0);
         }
 
         public void Send(ColorScheme scheme)
@@ -168,17 +168,39 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
         /// <param name="colorScheme">The color scheme to apply.</param>
         private static void ApplyToKeyboard(ColorScheme colorScheme)
         {
-            foreach (var entry in colorScheme)
+            var colorMap = new Dictionary<Keys, Color>();
+
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            {
+                colorMap.Add(key, colorScheme.BaseColor);
+            }
+
+            foreach (var entry in colorScheme.AbsoluteKeys)
+            {
+                var qwertyKey = KSPLogitechRGBPlugin.Instance.LayoutProvider.ConvertToQwertyCode(entry.Key);
+
+                if (KeyMapping.ContainsKey(qwertyKey))
+                {
+                    colorMap[KeyMapping[qwertyKey]] = entry.Value;
+                }
+            }
+
+            foreach (var entry in colorScheme.MappedKeys)
             {
                 if (KeyMapping.ContainsKey(entry.Key))
                 {
-                    LEDControl.LogiLedSetLightingForKeyWithScanCode(
-                        Convert.ToInt32(KeyMapping[entry.Key]),
-                        Convert.ToInt32(entry.Value.r * 100),
-                        Convert.ToInt32(entry.Value.g * 100),
-                        Convert.ToInt32(entry.Value.b * 100)
-                    );
+                    colorMap[KeyMapping[entry.Key]] = entry.Value;
                 }
+            }
+
+            foreach (var entry in colorMap)
+            {
+                LogiLedSetLightingForKeyWithScanCode(
+                    Convert.ToInt32(entry.Key),
+                    Convert.ToInt32(entry.Value.r * 100),
+                    Convert.ToInt32(entry.Value.g * 100),
+                    Convert.ToInt32(entry.Value.b * 100)
+                );
             }
         }
     }

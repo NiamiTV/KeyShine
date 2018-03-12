@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace KSP_LogiRGB.Logitech
+namespace KSP_LogiRGB.LEDControllers.Logitech
 {
-    public static class LEDControl
+    public static class LogitechSDK
     {
         public enum Keys
         {
