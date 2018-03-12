@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using KSP_LogiRGB.ColorSchemes;
+using KSP_LogiRGB.Logitech;
 using KSP_LogiRGB.SceneManagers;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace KSP_LogiRGB
     public class KSPChromaPlugin : MonoBehaviour
     {
         public static KSPChromaPlugin fetch;
-        private readonly List<DataDrain> dataDrains = new List<DataDrain>();
+        private readonly List<IDataDrain> dataDrains = new List<IDataDrain>();
 
         /// <summary>
         ///     The UDP network socket to send keyboard appearance orders to the server.
@@ -30,13 +31,12 @@ namespace KSP_LogiRGB
             fetch = this;
             dataDrains.Add(new LogitechDrain());
         }
-        
+
         /// <summary>
         ///     Called by unity on every physics frame.
         /// </summary>
         private void Update()
         {
-            
             ColorScheme scheme;
 
             if (AnimationManager.Instance.animationRunning())
@@ -59,7 +59,7 @@ namespace KSP_LogiRGB
                 }
             }
 
-            dataDrains.ForEach(drain => drain.send(scheme));
+            dataDrains.ForEach(drain => drain.Send(scheme));
         }
     }
 }
