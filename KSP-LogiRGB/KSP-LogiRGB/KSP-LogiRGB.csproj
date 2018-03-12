@@ -72,6 +72,7 @@
     <Compile Include="SceneManagers\FlightSceneManager.cs" />
     <Compile Include="SceneManagers\SceneManager.cs" />
     <Compile Include="SceneManagers\VABSceneManager.cs" />
+    <Compile Include="Tests\LayoutProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
