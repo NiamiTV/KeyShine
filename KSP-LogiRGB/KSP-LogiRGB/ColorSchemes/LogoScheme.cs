@@ -23,7 +23,7 @@ namespace KSP_LogiRGB.ColorSchemes
                 KeyCode.LeftShift, KeyCode.V, KeyCode.B, KeyCode.N, KeyCode.M, KeyCode.Comma, KeyCode.Period,
                 KeyCode.Slash, KeyCode.RightShift
             };
-            SetKeysToColor(redkeys, Color.red);
+            SetAbsoluteKeysToColor(redkeys, Color.red);
 
             KeyCode[] whitekeys =
             {
@@ -33,7 +33,7 @@ namespace KSP_LogiRGB.ColorSchemes
                 KeyCode.F4, KeyCode.Alpha5, KeyCode.R, KeyCode.F, KeyCode.CapsLock, KeyCode.G, KeyCode.H,
                 KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.Semicolon, KeyCode.Quote, KeyCode.Hash
             };
-            SetKeysToColor(whitekeys, Color.white);
+            SetAbsoluteKeysToColor(whitekeys, Color.white);
         }
     }
 }

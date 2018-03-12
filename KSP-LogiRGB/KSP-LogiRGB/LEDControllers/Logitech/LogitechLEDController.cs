@@ -180,21 +180,23 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 colorMap.Add(key, colorScheme.BaseColor);
             }
 
+            // Absolute keys do not need to be converted to QWERTY, they are already specified in QWERTY.
             foreach (var entry in colorScheme.AbsoluteKeys)
+            {
+                if (KeyMapping.ContainsKey(entry.Key))
+                {
+                    colorMap[KeyMapping[entry.Key]] = entry.Value;
+                }
+            }
+
+            // Mapped keys DO need to be converted to QWERTY before use.
+            foreach (var entry in colorScheme.MappedKeys)
             {
                 var qwertyKey = KSPLogitechRGBPlugin.Instance.LayoutProvider.ConvertToQwertyCode(entry.Key);
 
                 if (KeyMapping.ContainsKey(qwertyKey))
                 {
                     colorMap[KeyMapping[qwertyKey]] = entry.Value;
-                }
-            }
-
-            foreach (var entry in colorScheme.MappedKeys)
-            {
-                if (KeyMapping.ContainsKey(entry.Key))
-                {
-                    colorMap[KeyMapping[entry.Key]] = entry.Value;
                 }
             }
 
