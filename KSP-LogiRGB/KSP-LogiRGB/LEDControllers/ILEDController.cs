@@ -1,11 +1,11 @@
 ﻿using KSP_LogiRGB.ColorSchemes;
 
-namespace KSP_LogiRGB
+namespace KSP_LogiRGB.LEDControllers
 {
     /// <summary>
     ///     Implement this to use the mod with other devices.
     /// </summary>
-    internal interface IDataDrain
+    internal interface ILEDController
     {
         /// <summary>
         ///     Sends the requested color scheme to the implemented output channel

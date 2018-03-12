@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using KSP_LogiRGB.ColorSchemes;
+using KSP_LogiRGB.LEDControllers;
+using KSP_LogiRGB.LEDControllers.Logitech;
 using KSP_LogiRGB.Logitech;
 using KSP_LogiRGB.SceneManagers;
 using UnityEngine;
@@ -14,7 +16,7 @@ namespace KSP_LogiRGB
     public class KSPChromaPlugin : MonoBehaviour
     {
         public static KSPChromaPlugin fetch;
-        private readonly List<IDataDrain> dataDrains = new List<IDataDrain>();
+        private readonly List<ILEDController> dataDrains = new List<ILEDController>();
 
         /// <summary>
         ///     The UDP network socket to send keyboard appearance orders to the server.
@@ -29,7 +31,7 @@ namespace KSP_LogiRGB
         private void Awake()
         {
             fetch = this;
-            dataDrains.Add(new LogitechDrain());
+            dataDrains.Add(new LogitechLEDController());
         }
 
         /// <summary>
