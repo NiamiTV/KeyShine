@@ -1,57 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
 {
-    public class User32
+    internal static class User32
     {
-        public const uint VirtualKeysToScanCodes = 0x00;
-        public const uint ScanCodesToVirtualKeys = 0x01;
-        public const uint VirtualKeysToCharacters = 0x02;
-        public const uint ScanCodesToVirtualKeysDistinct = 0x03;
-        public const uint VirtualKeysToScanCodesDistinct = 0x04;
+        internal const uint ScanCodesToVirtualKeysDistinct = 0x03;
+        internal const uint VirtualKeysToScanCodesDistinct = 0x04;
 
-        public const uint ActivateLayout = 0x01;
-        public const uint DoNotActivateLayout = 0x80;
-        public const uint IgnoreUserLocale = 0x10;
-
-        internal const int LayoutCodeLength = 9;
+        internal const uint ActivateOnLoad = 0x01;
+        internal const uint DoNotActivateLayout = 0x80;
+        internal const uint IgnoreUserLocale = 0x10;
 
         [DllImport("user32.dll")]
-        public static extern uint MapVirtualKey(uint code, uint mappingType);
+        internal static extern uint MapVirtualKeyEx(uint code, uint mappingType, IntPtr layoutHandle);
 
         [DllImport("user32.dll")]
-        public static extern uint MapVirtualKeyEx(uint code, uint mappingType, IntPtr layoutHandle);
+        internal static extern IntPtr LoadKeyboardLayout(string layoutId, uint flags);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr LoadKeyboardLayout(string layoutId, uint flags);
+        internal static extern bool UnloadKeyboardLayout(IntPtr layoutHandle);
 
         [DllImport("user32.dll")]
-        public static extern bool UnloadKeyboardLayout(IntPtr layoutHandle);
+        internal static extern IntPtr GetKeyboardLayout(uint idThread);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetKeyboardLayout(uint idThread);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr ActivateKeyboardLayout(IntPtr layoutHandle, uint flags);
-
-        [DllImport("user32.dll")]
-        private static extern bool GetKeyboardLayoutName([Out] StringBuilder stringBuilder);
-
+        internal static extern IntPtr ActivateKeyboardLayout(IntPtr layoutHandle, uint flags);
+        
         [DllImport("user32.dll")]
         private static extern uint GetKeyboardLayoutList(int nBuff, [Out] IntPtr[] lpList);
-        
-        public static string GetLayoutId()
-        {
-            var name = new StringBuilder(LayoutCodeLength);
-            GetKeyboardLayoutName(name);
 
-            return name.ToString();
-        }
-
-        public static HashSet<IntPtr> GetKeyboardLayoutHandles()
+        internal static HashSet<IntPtr> GetKeyboardLayoutHandles()
         {
             var count = GetKeyboardLayoutList(0, null);
             var handles = new IntPtr[count];

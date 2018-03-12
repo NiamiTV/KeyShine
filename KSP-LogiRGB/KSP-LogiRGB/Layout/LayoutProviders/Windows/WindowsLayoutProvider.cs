@@ -6,7 +6,10 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
 {
     public class WindowsLayoutProvider : ILayoutProvider
     {
-        public enum VirtualKey : ushort
+        private const string QwertyUS = "00000409";
+        private const string DvorakUS = "00010409";
+
+        private enum VirtualKey : ushort
         {
             None = 0x00,
             Backspace = 0x08,
@@ -156,7 +159,7 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
             // Load the US QWERTY layout, User32.IgnoreUserLocale prevents Windows for loading a layout for
             // the user's given locale, which won't be removed properly after the method ends.
             var qwertyLayoutHandle = User32.LoadKeyboardLayout(
-                    "00000409", User32.DoNotActivateLayout | User32.IgnoreUserLocale);
+                    QwertyUS, User32.DoNotActivateLayout | User32.IgnoreUserLocale);
 
             // Special fast path for the off-chance (lol) that the user is already using the US QWERTY layout.
             if (_previousLayout == qwertyLayoutHandle)
@@ -211,6 +214,7 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
             }
         }
 
+        /// <inheritdoc />
         public KeyCode ConvertToQwertyCode(KeyCode nativeCode)
         {
             if (KeyCodeToVirtualKeyMap().ContainsKey(nativeCode))
@@ -223,6 +227,18 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
             }
 
             return nativeCode;
+        }
+
+        /// <inheritdoc />
+        public ITemporaryLayout LoadQwertyLayout()
+        {
+            return new WindowsTemporaryLayout(QwertyUS);
+        }
+
+        /// <inheritdoc />
+        public ITemporaryLayout LoadDvorakLayout()
+        {
+            return new WindowsTemporaryLayout(DvorakUS);
         }
     }
 }

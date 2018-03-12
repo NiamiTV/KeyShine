@@ -63,8 +63,10 @@
     <Compile Include="Config.cs" />
     <Compile Include="KSPLogiRGBPlugin.cs" />
     <Compile Include="Layout\LayoutProviders\ILayoutProvider.cs" />
+    <Compile Include="Layout\LayoutProviders\ITemporaryLayout.cs" />
     <Compile Include="Layout\LayoutProviders\Windows\User32.cs" />
     <Compile Include="Layout\LayoutProviders\Windows\WindowsLayoutProvider.cs" />
+    <Compile Include="Layout\LayoutProviders\Windows\WindowsTemporaryLayout.cs" />
     <Compile Include="LEDControllers\ILEDController.cs" />
     <Compile Include="LEDControllers\Logitech\LogitechSDK.cs" />
     <Compile Include="LEDControllers\Logitech\LogitechLEDController.cs" />
