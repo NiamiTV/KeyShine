@@ -16,8 +16,8 @@ namespace KSP_LogiRGB.ColorSchemes
             KeyCode[] redkeys =
             {
                 ///Rocket
-                KeyCode.LeftAlt, KeyCode.Backslash, KeyCode.Z, KeyCode.S, KeyCode.X, KeyCode.C, KeyCode.F3,
-                KeyCode.D, KeyCode.E, KeyCode.Alpha4,
+                KeyCode.LeftWindows, KeyCode.Z, KeyCode.S, KeyCode.X, KeyCode.C, KeyCode.F4,
+                KeyCode.D, KeyCode.E, KeyCode.Alpha4, KeyCode.A,
 
                 ///Stripes
                 KeyCode.LeftShift, KeyCode.V, KeyCode.B, KeyCode.N, KeyCode.M, KeyCode.Comma, KeyCode.Period,
@@ -27,10 +27,10 @@ namespace KSP_LogiRGB.ColorSchemes
 
             KeyCode[] whitekeys =
             {
-                KeyCode.LeftControl, KeyCode.LeftWindows, KeyCode.Space, KeyCode.AltGr, KeyCode.RightAlt,
+                KeyCode.LeftControl, KeyCode.LeftAlt, KeyCode.Space, KeyCode.AltGr, KeyCode.RightAlt,
                 KeyCode.RightWindows,
-                KeyCode.Menu, KeyCode.RightControl, KeyCode.A, KeyCode.W, KeyCode.Alpha3, KeyCode.F2,
-                KeyCode.F4, KeyCode.Alpha5, KeyCode.R, KeyCode.F, KeyCode.CapsLock, KeyCode.G, KeyCode.H,
+                KeyCode.Menu, KeyCode.RightControl, KeyCode.Q, KeyCode.W, KeyCode.Alpha3, KeyCode.F3,
+                KeyCode.Alpha5, KeyCode.R, KeyCode.F, KeyCode.CapsLock, KeyCode.G, KeyCode.H,
                 KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.Semicolon, KeyCode.Quote, KeyCode.Hash
             };
             SetAbsoluteKeysToColor(whitekeys, Color.white);
