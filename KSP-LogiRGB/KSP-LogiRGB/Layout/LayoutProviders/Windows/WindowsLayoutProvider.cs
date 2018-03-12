@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
@@ -106,9 +105,124 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
             Menu = 0x5D
         }
 
+        private static Dictionary<KeyCode, VirtualKey> _unityToVirtualMap;
+
+        private static Dictionary<KeyCode, VirtualKey> KeyCodeToVirtualKeyMap()
+        {
+            if (_unityToVirtualMap == null)
+            {
+                _unityToVirtualMap = new Dictionary<KeyCode, VirtualKey>();
+
+                foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+                {
+                    try
+                    {
+                        VirtualKey userKey = (VirtualKey) Enum.Parse(
+                            typeof(VirtualKey),
+                            Enum.GetName(typeof(KeyCode), keyCode) ?? "");
+                        _unityToVirtualMap[keyCode] = userKey;
+                    }
+                    catch (ArgumentException)
+                    {
+                        _unityToVirtualMap[keyCode] = VirtualKey.None;
+                    }
+                }
+            }
+
+            return _unityToVirtualMap;
+        }
+        
+        private static Dictionary<VirtualKey, KeyCode> _qwertyMapping;
+        private static IntPtr? _previousLayout;
+
+        private static Dictionary<VirtualKey, KeyCode> GetQwertyMapping()
+        {
+            if (_qwertyMapping == null || _previousLayout != User32.GetKeyboardLayout(0))
+            {
+                CalculateQwertyMapping();
+            }
+
+            return _qwertyMapping;
+        }
+
+        private static void CalculateQwertyMapping()
+        {
+            // Get a list of keyboard layouts already loaded.
+            var loadedHandles = User32.GetKeyboardLayoutHandles();
+
+            // Store the handle to the current layout.
+            _previousLayout = User32.GetKeyboardLayout(0);
+
+            // Load the US QWERTY layout, User32.IgnoreUserLocale prevents Windows for loading a layout for
+            // the user's given locale, which won't be removed properly after the method ends.
+            var qwertyLayoutHandle = User32.LoadKeyboardLayout(
+                    "00000409", User32.DoNotActivateLayout | User32.IgnoreUserLocale);
+
+            // Special fast path for the off-chance (lol) that the user is already using the US QWERTY layout.
+            if (_previousLayout == qwertyLayoutHandle)
+            {
+                // An empty map will cause the mapper to always default to the QWERTY mapping.
+                _qwertyMapping = new Dictionary<VirtualKey, KeyCode>();
+                return;
+            }
+            
+            // Make sure we are still using the previous layout to map the keys.
+            User32.ActivateKeyboardLayout(_previousLayout.Value, 0);
+
+            _qwertyMapping = new Dictionary<VirtualKey, KeyCode>();
+
+            foreach (ushort virtualKey in Enum.GetValues(typeof(VirtualKey)))
+            {
+                // Get the virtual key code corresponding to the scan code.
+                var scanCode = Convert.ToUInt16(User32.MapVirtualKeyEx(
+                    virtualKey,
+                    User32.VirtualKeysToScanCodesDistinct,
+                    _previousLayout.Value));
+
+                if (scanCode != 0)
+                {
+                    // Get the equivalent QWERTY key code for the given scan code.
+                    var qwertyKeyCode = User32.MapVirtualKeyEx(
+                        scanCode,
+                        User32.ScanCodesToVirtualKeysDistinct,
+                        qwertyLayoutHandle);
+
+                    try
+                    {
+                        // Get the Unity keycode corresponding to the QWERTY virtual key.
+                        var keyName = Enum.GetName(typeof(VirtualKey), (VirtualKey) qwertyKeyCode);
+                        KeyCode code = (KeyCode)Enum.Parse(
+                            typeof(KeyCode),
+                            keyName ?? throw new ArgumentException());
+
+                        _qwertyMapping[(VirtualKey)virtualKey] = code;
+                    }
+                    catch (ArgumentException)
+                    {
+                        // Do nothing.
+                    }
+                }
+            }
+
+            // Unload the QWERTY layout if it was only loaded by this function.
+            if (_previousLayout != qwertyLayoutHandle && !loadedHandles.Contains(qwertyLayoutHandle))
+            {
+                User32.UnloadKeyboardLayout(qwertyLayoutHandle);
+            }
+        }
+
         public KeyCode ConvertToQwertyCode(KeyCode nativeCode)
         {
-            throw new NotImplementedException();
+            if (KeyCodeToVirtualKeyMap().ContainsKey(nativeCode))
+            {
+                var virtualKey = KeyCodeToVirtualKeyMap()[nativeCode];
+                if (virtualKey != VirtualKey.None && GetQwertyMapping().ContainsKey(virtualKey))
+                {
+                    return GetQwertyMapping()[virtualKey];
+                }
+            }
+
+            return nativeCode;
         }
     }
 }

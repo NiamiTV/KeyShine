@@ -10,8 +10,8 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
         public const uint VirtualKeysToScanCodes = 0x00;
         public const uint ScanCodesToVirtualKeys = 0x01;
         public const uint VirtualKeysToCharacters = 0x02;
-        public const uint ScanCodesToVirtualKeysExtended = 0x03;
-        public const uint VirtualKeysToScanCodesExtended = 0x04;
+        public const uint ScanCodesToVirtualKeysDistinct = 0x03;
+        public const uint VirtualKeysToScanCodesDistinct = 0x04;
 
         public const uint ActivateLayout = 0x01;
         public const uint DoNotActivateLayout = 0x80;
