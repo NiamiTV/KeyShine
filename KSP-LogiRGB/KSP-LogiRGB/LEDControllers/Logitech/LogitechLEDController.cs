@@ -35,7 +35,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.BackQuote, ScanCode.Tilde},
                 {KeyCode.Backslash, ScanCode.Backslash},
                 {KeyCode.Backspace, ScanCode.Backspace},
-                //{ KeyCode.Break, LEDControl.Keys.PauseBreak },
+                {KeyCode.Break, ScanCode.PauseBreak},
 
                 {KeyCode.C, ScanCode.C},
                 {KeyCode.CapsLock, ScanCode.CapsLock},
@@ -150,18 +150,34 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.Z, ScanCode.Z}
             };
 
-        public static ScanCode UnityKeyCodeToLogitechScanCode(KeyCode code)
+        /// <summary>
+        ///     Converts a Unity <c>KeyCode</c> into a Logitech <c>ScanCode</c>.
+        /// </summary>
+        /// <param name="code">The Unity <c>KeyCode</c> to convert.</param>
+        /// <returns>The Logitech <c>ScanCode</c>.</returns>
+        public static ScanCode KeyCodeToScanCode(KeyCode code)
         {
             return KeyMapping[code];
         }
 
+        /// <summary>
+        ///     Constructor. Starts the Logitech Link.
+        /// </summary>
         public LogitechLEDController()
         {
             LogiLedInit();
             LogiLedSetTargetDevice(LogiDevicetypePerkeyRGB);
-            LogiLedSetLighting(0, 0, 0);
         }
 
+        /// <summary>
+        ///     Clean up any resources we've been using, closes the link with Logitech.
+        /// </summary>
+        ~LogitechLEDController()
+        {
+            LogiLedShutdown();
+        }
+
+        /// <inheritdoc />
         public void Send(ColorScheme scheme)
         {
             ApplyToKeyboard(scheme);
@@ -185,7 +201,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
             {
                 if (KeyMapping.ContainsKey(entry.Key))
                 {
-                    colorMap[KeyMapping[entry.Key]] = entry.Value;
+                    colorMap[KeyCodeToScanCode(entry.Key)] = entry.Value;
                 }
             }
 
@@ -196,7 +212,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
 
                 if (KeyMapping.ContainsKey(qwertyKey))
                 {
-                    colorMap[KeyMapping[qwertyKey]] = entry.Value;
+                    colorMap[KeyCodeToScanCode(qwertyKey)] = entry.Value;
                 }
             }
 

@@ -13,7 +13,7 @@ namespace KSP_LogiRGB
     ///     The main class, managing the keyboard appearance for every kind of scene KSP
     ///     uses.
     /// </summary>
-    [KSPAddon(KSPAddon.Startup.EveryScene, false)]
+    [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class KSPLogitechRGBPlugin : MonoBehaviour
     {
         public static KSPLogitechRGBPlugin Instance;
@@ -27,13 +27,15 @@ namespace KSP_LogiRGB
         private readonly SceneManager _vabSceneManager = new VABSceneManager();
 
         /// <summary>
-        ///     Called by unity during the launch of this addon.
+        ///     Called by unity during the launch of KSP. It will only be run once. So make sure it doesn't
+        ///     crash.
         /// </summary>
-        private void Awake()
+        private void Start()
         {
             Instance = this;
             _ledControllers.Add(new LogitechLEDController());
             LayoutProvider = new WindowsLayoutProvider();
+            DontDestroyOnLoad(this);
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace KSP_LogiRGB
                 }
             }
 
-            _ledControllers.ForEach(drain => drain.Send(scheme));
+            _ledControllers.ForEach(controller => controller.Send(scheme));
         }
     }
 }
