@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using KSP_LogiRGB.ColorSchemes;
+using KSP_LogiRGB.Layout;
+using KSP_LogiRGB.Layout.LayoutProviders.Windows;
 using KSP_LogiRGB.LEDControllers;
 using KSP_LogiRGB.LEDControllers.Logitech;
-using KSP_LogiRGB.Logitech;
 using KSP_LogiRGB.SceneManagers;
 using UnityEngine;
 
@@ -13,25 +14,26 @@ namespace KSP_LogiRGB
     ///     uses.
     /// </summary>
     [KSPAddon(KSPAddon.Startup.EveryScene, false)]
-    public class KSPChromaPlugin : MonoBehaviour
+    public class KSPLogitechRGBPlugin : MonoBehaviour
     {
-        public static KSPChromaPlugin fetch;
-        private readonly List<ILEDController> dataDrains = new List<ILEDController>();
+        public static KSPLogitechRGBPlugin Instance;
 
-        /// <summary>
-        ///     The UDP network socket to send keyboard appearance orders to the server.
-        /// </summary>
-        private readonly SceneManager flightSceneManager = new FlightSceneManager();
+        public ILayoutProvider LayoutProvider { get; private set; }
 
-        private readonly SceneManager vabSceneManager = new VABSceneManager();
+        private readonly List<ILEDController> _ledControllers = new List<ILEDController>();
+
+        private readonly SceneManager _flightSceneManager = new FlightSceneManager();
+
+        private readonly SceneManager _vabSceneManager = new VABSceneManager();
 
         /// <summary>
         ///     Called by unity during the launch of this addon.
         /// </summary>
         private void Awake()
         {
-            fetch = this;
-            dataDrains.Add(new LogitechLEDController());
+            Instance = this;
+            _ledControllers.Add(new LogitechLEDController());
+            LayoutProvider = new WindowsLayoutProvider();
         }
 
         /// <summary>
@@ -50,10 +52,10 @@ namespace KSP_LogiRGB
                 switch (HighLogic.LoadedScene)
                 {
                     case GameScenes.FLIGHT:
-                        scheme = flightSceneManager.getScheme();
+                        scheme = _flightSceneManager.getScheme();
                         break;
                     case GameScenes.EDITOR:
-                        scheme = vabSceneManager.getScheme();
+                        scheme = _vabSceneManager.getScheme();
                         break;
                     default:
                         scheme = new LogoScheme();
@@ -61,7 +63,7 @@ namespace KSP_LogiRGB
                 }
             }
 
-            dataDrains.ForEach(drain => drain.Send(scheme));
+            _ledControllers.ForEach(drain => drain.Send(scheme));
         }
     }
 }
