@@ -278,8 +278,9 @@ namespace KSP_LogiRGB.SceneManagers
             else
                 currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary.code, Color.red);
 
-            /// Lights up the quickload button
-            currentColorScheme.SetKeyToColor(GameSettings.QUICKLOAD.primary.code, Color.green);
+            /// Lights up the quickload button (if allowed)
+            if (HighLogic.CurrentGame.Parameters.Flight.CanQuickLoad)
+                currentColorScheme.SetKeyToColor(GameSettings.QUICKLOAD.primary.code, Color.green);
 
             /// Colors the timewarp buttons red and green for physics and on-rails warp
             if (TimeWarp.WarpMode == TimeWarp.Modes.HIGH)
