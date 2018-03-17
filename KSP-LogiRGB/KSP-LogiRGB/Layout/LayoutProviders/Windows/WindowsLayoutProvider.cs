@@ -8,6 +8,7 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
     {
         private const string QwertyUS = "00000409";
         private const string DvorakUS = "00010409";
+        private const string AzertyFR = "0000040c";
 
         private enum VirtualKey : ushort
         {
@@ -20,7 +21,7 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
             Escape = 0x13,
             Space = 0x20,
             Quote = 0xDE,
-            Plus = 0xBB,
+            Equals = 0xBB,
             Comma = 0xBC,
             Minus = 0xBD,
             Period = 0xBE,
@@ -239,6 +240,12 @@ namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
         public ITemporaryLayout LoadDvorakLayout()
         {
             return new WindowsTemporaryLayout(DvorakUS);
+        }
+
+        /// <inheritdoc />
+        public ITemporaryLayout LoadAzertyLayout()
+        {
+            return new WindowsTemporaryLayout(AzertyFR);
         }
     }
 }

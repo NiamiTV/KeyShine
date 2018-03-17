@@ -9,5 +9,7 @@ namespace KSP_LogiRGB.Layout
         ITemporaryLayout LoadQwertyLayout();
         
         ITemporaryLayout LoadDvorakLayout();
+        
+        ITemporaryLayout LoadAzertyLayout();
     }
 }

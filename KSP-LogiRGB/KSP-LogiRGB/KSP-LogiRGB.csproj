@@ -65,7 +65,6 @@
     <Compile Include="Layout\LayoutProviders\ILayoutProvider.cs" />
     <Compile Include="Layout\LayoutProviders\ITemporaryLayout.cs" />
     <Compile Include="Layout\LayoutProviders\Windows\User32.cs" />
-    <Compile Include="Layout\LayoutProviders\Windows\WindowsLayoutLoader.cs" />
     <Compile Include="Layout\LayoutProviders\Windows\WindowsLayoutProvider.cs" />
     <Compile Include="Layout\LayoutProviders\Windows\WindowsTemporaryLayout.cs" />
     <Compile Include="LEDControllers\ILEDController.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="SceneManagers\VABSceneManager.cs" />
     <Compile Include="Tests\DynamicLoadTests.cs" />
     <Compile Include="Tests\LayoutProviderTests.cs" />
-    <Compile Include="Tests\WindowsLayoutLoaderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

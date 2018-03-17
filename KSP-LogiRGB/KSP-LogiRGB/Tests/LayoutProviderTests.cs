@@ -51,15 +51,18 @@ namespace KSP_LogiRGB.Tests
         {
             AssertSame(KeyCode.Escape);
             AssertSame(KeyCode.LeftControl);
-            AssertSame(KeyCode.LeftWindows);
             AssertSame(KeyCode.LeftAlt);
             AssertSame(KeyCode.RightAlt);
-            AssertSame(KeyCode.RightWindows);
             AssertSame(KeyCode.Menu);
             AssertSame(KeyCode.RightControl);
             AssertSame(KeyCode.SysReq);
             AssertSame(KeyCode.ScrollLock);
             AssertSame(KeyCode.Pause);
+            
+            // Unity actually maps these to LeftCommand and RightApple, but fixing it is a low priority
+            // because only a madman would map their Windows Key to something else.
+            AssertSame(KeyCode.LeftWindows);
+            AssertSame(KeyCode.RightWindows);
         }
 
         [Test]
@@ -168,7 +171,7 @@ namespace KSP_LogiRGB.Tests
                 AssertSame(KeyCode.Alpha9);
                 AssertSame(KeyCode.Alpha0);
                 AssertMapped(KeyCode.LeftBracket, KeyCode.Minus);
-                AssertMapped(KeyCode.RightBracket, KeyCode.Plus);
+                AssertMapped(KeyCode.RightBracket, KeyCode.Equals);
                 AssertSame(KeyCode.Backspace);
                 
                 AssertSame(KeyCode.Tab);
@@ -183,7 +186,7 @@ namespace KSP_LogiRGB.Tests
                 AssertMapped(KeyCode.R, KeyCode.O);
                 AssertMapped(KeyCode.L, KeyCode.P);
                 AssertMapped(KeyCode.Slash, KeyCode.LeftBracket);
-                AssertMapped(KeyCode.Plus, KeyCode.RightBracket);
+                AssertMapped(KeyCode.Equals, KeyCode.RightBracket);
                 AssertSame(KeyCode.Backslash);
                 
                 AssertSame(KeyCode.CapsLock);
@@ -218,6 +221,78 @@ namespace KSP_LogiRGB.Tests
             finally
             {
                 dvorak.Dispose();
+            }
+        }
+        
+        [Test]
+        public void TestAzerty()
+        {
+            var azerty = _layoutProvider.LoadAzertyLayout();
+            try
+            {
+                AssertMapped(KeyCode.Quote, KeyCode.BackQuote);
+                AssertSame(KeyCode.Alpha1);
+                AssertSame(KeyCode.Alpha2);
+                AssertSame(KeyCode.Alpha3);
+                AssertSame(KeyCode.Alpha4);
+                AssertSame(KeyCode.Alpha5);
+                AssertSame(KeyCode.Alpha6);
+                AssertSame(KeyCode.Alpha7);
+                AssertSame(KeyCode.Alpha8);
+                AssertSame(KeyCode.Alpha9);
+                AssertSame(KeyCode.Alpha0);
+                AssertMapped(KeyCode.LeftBracket, KeyCode.Minus);
+                AssertSame(KeyCode.Equals);
+                AssertSame(KeyCode.Backspace);
+                
+                AssertSame(KeyCode.Tab);
+                AssertMapped(KeyCode.A, KeyCode.Q);
+                AssertMapped(KeyCode.Z, KeyCode.W);
+                AssertMapped(KeyCode.E, KeyCode.E);
+                AssertMapped(KeyCode.R, KeyCode.R);
+                AssertMapped(KeyCode.T, KeyCode.T);
+                AssertMapped(KeyCode.Y, KeyCode.Y);
+                AssertMapped(KeyCode.U, KeyCode.U);
+                AssertMapped(KeyCode.I, KeyCode.I);
+                AssertMapped(KeyCode.O, KeyCode.O);
+                AssertMapped(KeyCode.P, KeyCode.P);
+                AssertMapped(KeyCode.RightBracket, KeyCode.LeftBracket);
+                AssertMapped(KeyCode.Semicolon, KeyCode.RightBracket);
+                AssertSame(KeyCode.Backslash);
+                
+                AssertSame(KeyCode.CapsLock);
+                AssertMapped(KeyCode.Q, KeyCode.A);
+                AssertMapped(KeyCode.S, KeyCode.S);
+                AssertMapped(KeyCode.D, KeyCode.D);
+                AssertMapped(KeyCode.F, KeyCode.F);
+                AssertMapped(KeyCode.G, KeyCode.G);
+                AssertMapped(KeyCode.H, KeyCode.H);
+                AssertMapped(KeyCode.J, KeyCode.J);
+                AssertMapped(KeyCode.K, KeyCode.K);
+                AssertMapped(KeyCode.L, KeyCode.L);
+                AssertMapped(KeyCode.M, KeyCode.Semicolon);
+                AssertMapped(KeyCode.BackQuote, KeyCode.Quote);
+                AssertSame(KeyCode.Return);
+                
+                AssertSame(KeyCode.LeftShift);
+                AssertMapped(KeyCode.W, KeyCode.Z);
+                AssertMapped(KeyCode.X, KeyCode.X);
+                AssertMapped(KeyCode.C, KeyCode.C);
+                AssertMapped(KeyCode.V, KeyCode.V);
+                AssertMapped(KeyCode.B, KeyCode.B);
+                AssertMapped(KeyCode.N, KeyCode.N);
+                AssertMapped(KeyCode.Comma, KeyCode.M);
+                AssertMapped(KeyCode.Period, KeyCode.Comma);
+                AssertMapped(KeyCode.Slash, KeyCode.Period);
+                // OEM_8 does not appear to be addressable in KSP...
+                // AssertMapped(KeyCode.Slash, KeyCode.Slash); 
+                AssertSame(KeyCode.RightShift);
+                
+                AssertSame(KeyCode.Space);
+            }
+            finally
+            {
+                azerty.Dispose();
             }
         }
     }

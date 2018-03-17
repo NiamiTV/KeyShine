@@ -1,4 +1,5 @@
-﻿using KSP_LogiRGB.LEDControllers.Logitech;
+﻿using System.Threading;
+using KSP_LogiRGB.LEDControllers.Logitech;
 using NUnit.Framework;
 
 namespace KSP_LogiRGB.Tests

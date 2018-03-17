@@ -243,15 +243,15 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
         public delegate void LogiLedShutdown();
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hReservedNull, uint dwFlags);
+        private static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hReservedNull, uint dwFlags);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
         [DllImport("kernel32.dll")]
-        public static extern bool FreeLibrary(IntPtr hModule);
+        private static extern bool FreeLibrary(IntPtr hModule);
 
-        private static IntPtr _handle = IntPtr.Zero;
+        private static IntPtr _dllHandle = IntPtr.Zero;
         private static LogiLedShutdown _shutdown;
         private static LogiLedSetTargetDevice _setTargetDevice;
         private static LogiLedSetLightingForKeyWithScanCode _setLightingForScanCode;
@@ -272,13 +272,19 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
 
         public static bool Init()
         {
-            _handle = LoadLibraryEx(DllPath, IntPtr.Zero, 0);
-            if (_handle == IntPtr.Zero)
+            // Handle the case when the library is already loaded.
+            if (_dllHandle != IntPtr.Zero)
+            {
+                return true;
+            }
+            
+            _dllHandle = LoadLibraryEx(DllPath, IntPtr.Zero, 0);
+            if (_dllHandle == IntPtr.Zero)
             {
                 return false;
             }
 
-            var initAddress = GetProcAddress(_handle, "LogiLedInit");
+            var initAddress = GetProcAddress(_dllHandle, "LogiLedInit");
             if (initAddress == IntPtr.Zero)
             {
                 Shutdown();
@@ -293,12 +299,12 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 Shutdown();
             }
 
-            var shutdownAddress = GetProcAddress(_handle, "LogiLedShutdown");
-            var setTargetDeviceAddress = GetProcAddress(_handle, "LogiLedSetTargetDevice");
+            var shutdownAddress = GetProcAddress(_dllHandle, "LogiLedShutdown");
+            var setTargetDeviceAddress = GetProcAddress(_dllHandle, "LogiLedSetTargetDevice");
             var setLightingForKeyWithScanCodeAddress =
-                GetProcAddress(_handle, "LogiLedSetLightingForKeyWithScanCode");
+                GetProcAddress(_dllHandle, "LogiLedSetLightingForKeyWithScanCode");
             var setLightingForKeyWithKeyNameAddress =
-                GetProcAddress(_handle, "LogiLedSetLightingForKeyWithKeyName");
+                GetProcAddress(_dllHandle, "LogiLedSetLightingForKeyWithKeyName");
 
             foreach (var address in new[]
                 {shutdownAddress, setTargetDeviceAddress, setLightingForKeyWithScanCodeAddress, setLightingForKeyWithKeyNameAddress})
@@ -355,7 +361,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
 
         public static void Shutdown()
         {
-            if (_handle != IntPtr.Zero)
+            if (_dllHandle != IntPtr.Zero)
             {
                 _shutdown?.Invoke();
 
@@ -364,8 +370,8 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 _setLightingForScanCode = null;
                 _setLightingForKeyName = null;
 
-                FreeLibrary(_handle);
-                _handle = IntPtr.Zero;
+                FreeLibrary(_dllHandle);
+                _dllHandle = IntPtr.Zero;
             }
         }
     }
