@@ -21,17 +21,17 @@ namespace KSP_LogiRGB.ColorSchemes
                 GameSettings.TRANSLATE_UP.primary.code,
                 GameSettings.TRANSLATE_DOWN.primary.code
             };
-            SetKeysToColor(yellowkeys, Color.yellow);
+            SetKeyCodesToColor(yellowkeys, Color.yellow);
 
             KeyCode[] redkeys =
             {
                 GameSettings.THROTTLE_FULL.primary.code, GameSettings.THROTTLE_CUTOFF.primary.code,
                 GameSettings.THROTTLE_UP.primary.code, GameSettings.THROTTLE_DOWN.primary.code
             };
-            SetKeysToColor(redkeys, Color.red);
+            SetKeyCodesToColor(redkeys, Color.red);
 
             KeyCode[] bluekeys = {GameSettings.FOCUS_NEXT_VESSEL.primary.code, GameSettings.FOCUS_PREV_VESSEL.primary.code };
-            SetKeysToColor(bluekeys, Color.blue);
+            SetKeyCodesToColor(bluekeys, Color.blue);
         }
     }
 }

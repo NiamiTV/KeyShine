@@ -1,15 +1,31 @@
-﻿using System.Collections.Generic;
+﻿//
+// Copyright © Randy The Dev, 2018
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KSP_LogiRGB.ColorSchemes
 {
     /// <summary>
-    ///     Represents a base color scheme, saving all the colors per key.
+    ///     A color scheme that defines multiple layers of colours to be set to a keyboard.
     /// </summary>
     public class ColorScheme
     {
         /// <summary>
-        ///     The base color of the scheme. Any key that is not assigned a color will have this one instead.
+        ///     The base layer of the scheme. Any key that is not assigned a color will have this one instead.
         /// </summary>
         public Color BaseColor;
 
@@ -28,16 +44,16 @@ namespace KSP_LogiRGB.ColorSchemes
         public Dictionary<KeyCode, Color> AbsoluteKeys;
 
         /// <summary>
-        ///     Creates a new ColorScheme rendering all keys black;
+        ///     Default scheme with black keys.
         /// </summary>
         public ColorScheme() : this(Color.black)
         {
         }
 
         /// <summary>
-        ///     Creates a new ColorScheme rendering all keys in the defined color.
+        ///     Creates a new [ColorScheme] with the given color as a base layer.
         /// </summary>
-        /// <param name="baseColor">The color to use</param>
+        /// <param name="baseColor">The base color to use</param>
         public ColorScheme(Color baseColor)
         {
             BaseColor = baseColor;
@@ -48,9 +64,11 @@ namespace KSP_LogiRGB.ColorSchemes
         /// <summary>
         ///     Sets a mapped key to the defined color.
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="color"></param>
-        public void SetKeyToColor(KeyCode key, Color color)
+        /// <param name="key">
+        ///     A key that should light up, location depending on the user's keyboard layout.
+        /// </param>
+        /// <param name="color">The color it should be assigned.</param>
+        public void SetKeyCodeToColor(KeyCode key, Color color)
         {
             MappedKeys[key] = color;
         }
@@ -58,13 +76,15 @@ namespace KSP_LogiRGB.ColorSchemes
         /// <summary>
         ///     Sets a number of mapped keys to the defined color.
         /// </summary>
-        /// <param name="keys">An array of keys to light up</param>
-        /// <param name="color">The color to use</param>
-        public void SetKeysToColor(KeyCode[] keys, Color color)
+        /// <param name="keys">
+        ///     An array of keys to light up, their location depending on the user's keyboard layout.
+        /// </param>
+        /// <param name="color">The color to light the keys with.</param>
+        public void SetKeyCodesToColor(KeyCode[] keys, Color color)
         {
             foreach (var key in keys)
             {
-                SetKeyToColor(key, color);
+                SetKeyCodeToColor(key, color);
             }
         }
 

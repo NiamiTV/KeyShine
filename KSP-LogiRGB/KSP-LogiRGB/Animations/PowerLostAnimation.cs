@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using KSP_LogiRGB.ColorSchemes;
+﻿using KSP_LogiRGB.ColorSchemes;
 using UnityEngine;
 
 namespace KSP_LogiRGB

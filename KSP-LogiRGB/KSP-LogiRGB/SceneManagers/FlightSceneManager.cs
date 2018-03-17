@@ -184,7 +184,7 @@ namespace KSP_LogiRGB.SceneManagers
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    currentColorScheme.SetKeyToColor(keys[i], partialColor(color, i));
+                    currentColorScheme.SetKeyCodeToColor(keys[i], partialColor(color, i));
                 }
             };
 
@@ -236,24 +236,24 @@ namespace KSP_LogiRGB.SceneManagers
                 {
                     if (!agroup.Value)
                     {
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
+                        currentColorScheme.SetKeyCodeToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Color.black);
                     }
                     else if (currentVessel.ActionGroups[agroup.Key])
                     {
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
+                        currentColorScheme.SetKeyCodeToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Config.Instance.actionGroupConf[agroup.Key].Value.Value);
                     }
                     else
                     {
-                        currentColorScheme.SetKeyToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
+                        currentColorScheme.SetKeyCodeToColor(Config.Instance.actionGroupConf[agroup.Key].Key.primary.code,
                             Config.Instance.actionGroupConf[agroup.Key].Value.Key);
                     }
                 }
             }
 
             /// Colors the map view key
-            currentColorScheme.SetKeyToColor(
+            currentColorScheme.SetKeyCodeToColor(
                 GameSettings.MAP_VIEW_TOGGLE.primary.code,
                 MapView.MapIsEnabled ? Config.Instance.redGreenToggle.Value : Config.Instance.redGreenToggle.Key
                 );
@@ -261,50 +261,50 @@ namespace KSP_LogiRGB.SceneManagers
             /// Lights steering buttons differently if precision mode is on
             if (FlightInputHandler.fetch.precisionMode)
             {
-                currentColorScheme.SetKeysToColor(rotation, Color.yellow);
-                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary.code, Color.green);
+                currentColorScheme.SetKeyCodesToColor(rotation, Color.yellow);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.PRECISION_CTRL.primary.code, Color.green);
             }
             else
             {
-                currentColorScheme.SetKeysToColor(rotation, Color.white);
-                currentColorScheme.SetKeyToColor(GameSettings.PRECISION_CTRL.primary.code, Color.red);
+                currentColorScheme.SetKeyCodesToColor(rotation, Color.white);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.PRECISION_CTRL.primary.code, Color.red);
             }
 
             /// Lights the quicksave button green, if it is enabled, red otherwise
             if (currentVessel.IsClearToSave() == ClearToSaveStatus.CLEAR ||
                 currentVessel.IsClearToSave() == ClearToSaveStatus.NOT_IN_ATMOSPHERE ||
                 currentVessel.IsClearToSave() == ClearToSaveStatus.NOT_UNDER_ACCELERATION)
-                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary.code, Color.green);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.QUICKSAVE.primary.code, Color.green);
             else
-                currentColorScheme.SetKeyToColor(GameSettings.QUICKSAVE.primary.code, Color.red);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.QUICKSAVE.primary.code, Color.red);
 
             /// Lights up the quickload button (if allowed)
             if (HighLogic.CurrentGame.Parameters.Flight.CanQuickLoad)
-                currentColorScheme.SetKeyToColor(GameSettings.QUICKLOAD.primary.code, Color.green);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.QUICKLOAD.primary.code, Color.green);
 
             /// Colors the timewarp buttons red and green for physics and on-rails warp
             if (TimeWarp.WarpMode == TimeWarp.Modes.HIGH)
-                currentColorScheme.SetKeysToColor(timewarp, Color.green);
+                currentColorScheme.SetKeyCodesToColor(timewarp, Color.green);
             else
-                currentColorScheme.SetKeysToColor(timewarp, Color.red);
+                currentColorScheme.SetKeyCodesToColor(timewarp, Color.red);
 
             /// Different colors for the camera mode switch
             switch (FlightCamera.fetch.mode)
             {
                 case FlightCamera.Modes.AUTO:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.green);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.CAMERA_NEXT.primary.code, Color.green);
                     break;
                 case FlightCamera.Modes.CHASE:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.blue);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.CAMERA_NEXT.primary.code, Color.blue);
                     break;
                 case FlightCamera.Modes.FREE:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.yellow);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.CAMERA_NEXT.primary.code, Color.yellow);
                     break;
                 case FlightCamera.Modes.LOCKED:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.cyan);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.CAMERA_NEXT.primary.code, Color.cyan);
                     break;
                 default:
-                    currentColorScheme.SetKeyToColor(GameSettings.CAMERA_NEXT.primary.code, Color.white);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.CAMERA_NEXT.primary.code, Color.white);
                     break;
             }
         }
@@ -317,17 +317,17 @@ namespace KSP_LogiRGB.SceneManagers
             /// Solid black if staging is complete
             if (currentVessel.currentStage == 0)
             {
-                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
             }
             /// Solid purple if staging is locked
             else if (InputLockManager.IsLocked(ControlTypes.STAGING))
             {
-                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.magenta);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.magenta);
             }
             /// Solid yellow if staging is in cooldown
             else if (!StageManager.CanSeparate)
             {
-                currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.yellow);
+                currentColorScheme.SetKeyCodeToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.yellow);
             }
             /// Blinking green if ready to stage
             else
@@ -336,11 +336,11 @@ namespace KSP_LogiRGB.SceneManagers
                 bool ledOn = (int)(Math.Truncate(Time.time / frequency)) % 2 != 0;
                 if (ledOn)
                 {
-                    currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.green);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.green);
                 }
                 else
                 {
-                    currentColorScheme.SetKeyToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
+                    currentColorScheme.SetKeyCodeToColor(GameSettings.LAUNCH_STAGES.primary.code, Color.black);
                 }
             }
         }
@@ -364,14 +364,14 @@ namespace KSP_LogiRGB.SceneManagers
                 Color newColor = new Color32(0, 100, 100, 255);
 
                 if (vesselHeight > ceiling)
-                    currentColorScheme.SetKeyToColor(heightScaleKeys[i], newColor);
+                    currentColorScheme.SetKeyCodeToColor(heightScaleKeys[i], newColor);
                 else if (vesselHeight > floor)
                 {
                     var factor = (float) ((vesselHeight - floor)/(ceiling - floor));
                     newColor.r *= factor;
                     newColor.g *= factor;
                     newColor.b *= factor;
-                    currentColorScheme.SetKeyToColor(heightScaleKeys[i], newColor);
+                    currentColorScheme.SetKeyCodeToColor(heightScaleKeys[i], newColor);
                 }
             }
         }
