@@ -83,6 +83,15 @@ namespace KSP_LogiRGB.Tests
         }
 
         [Test]
+        public void TestRemappingHacks()
+        {
+            AssertMapped(KeyCode.Hash, KeyCode.Hash);
+            AssertMapped(KeyCode.Less, KeyCode.Less);
+            Assert.AreEqual(KeyName.NonUSHash, LogitechLEDController.KeyCodeToScanCode(KeyCode.Hash));
+            Assert.AreEqual(KeyName.NonUSBackslash, LogitechLEDController.KeyCodeToScanCode(KeyCode.Less));
+        }
+
+        [Test]
         public void TestQwerty()
         {
             var qwerty = _layoutProvider.LoadQwertyLayout();

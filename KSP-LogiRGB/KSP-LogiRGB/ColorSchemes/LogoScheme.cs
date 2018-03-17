@@ -21,7 +21,7 @@ namespace KSP_LogiRGB.ColorSchemes
 
                 ///Stripes
                 KeyCode.LeftShift, KeyCode.V, KeyCode.B, KeyCode.N, KeyCode.M, KeyCode.Comma, KeyCode.Period,
-                KeyCode.Slash, KeyCode.RightShift
+                KeyCode.Slash, KeyCode.RightShift, KeyCode.Less
             };
             SetAbsoluteKeysToColor(redkeys, Color.red);
 

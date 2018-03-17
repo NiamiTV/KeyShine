@@ -67,7 +67,6 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.F11, KeyName.F11},
                 {KeyCode.F12, KeyName.F12},
                 {KeyCode.G, KeyName.G},
-                {KeyCode.Greater, KeyName.Period},
 
                 {KeyCode.H, KeyName.H},
                 //{ KeyCode.Hash, keyboardNames.EurPound },
@@ -94,15 +93,15 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.KeypadPlus, KeyName.NumPlus},
                 {KeyCode.L, KeyName.L},
                 {KeyCode.LeftAlt, KeyName.LeftAlt},
-                //{ KeyCode.LeftApple, keyboardNames.LeftAlt }, removed due to blinking issues
+                //{KeyCode.LeftApple, keyboardNames.LeftAlt }, removed due to blinking issues
                 {KeyCode.LeftArrow, KeyName.ArrowLeft},
                 {KeyCode.LeftBracket, KeyName.OpenBracket},
-                //{ KeyCode.LeftCommand, keyboardNames.LeftAlt }, !!!! Duplicate of RightApple
+                {KeyCode.LeftCommand, KeyName.LeftWindows}, // I don't know why it does this.
                 {KeyCode.LeftControl, KeyName.LeftControl},
                 //{ KeyCode.LeftParen, keyboardNames.D9 },
                 {KeyCode.LeftShift, KeyName.LeftShift},
                 {KeyCode.LeftWindows, KeyName.LeftWindows},
-                {KeyCode.Less, KeyName.Comma},
+//                {KeyCode.Less, KeyName.Comma},
 
                 {KeyCode.M, KeyName.M},
                 {KeyCode.Menu, KeyName.ApplicationSelect},
@@ -123,7 +122,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.R, KeyName.R},
                 {KeyCode.Return, KeyName.Enter},
                 {KeyCode.RightAlt, KeyName.RightAlt},
-                //{ KeyCode.RightApple, LEDControl.Keys.RightAlt }, removed due to blinking issues
+                {KeyCode.RightApple, KeyName.RightWindows}, // Same deal as LeftCommand. So weird. Blame KSP.
                 {KeyCode.RightArrow, KeyName.ArrowRight},
                 {KeyCode.RightBracket, KeyName.CloseBracket},
                 //{ KeyCode.RightCommand, LEDControl.Keys.RightAlt }, !!!! Duplicate of RightApple
@@ -147,7 +146,11 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 {KeyCode.W, KeyName.W},
                 {KeyCode.X, KeyName.X},
                 {KeyCode.Y, KeyName.Y},
-                {KeyCode.Z, KeyName.Z}
+                {KeyCode.Z, KeyName.Z},
+                
+                // Abuse keycodes to enable the logo to work...
+                {KeyCode.Less, KeyName.NonUSBackslash},
+                {KeyCode.Hash, KeyName.NonUSHash}
             };
 
         /// <summary>

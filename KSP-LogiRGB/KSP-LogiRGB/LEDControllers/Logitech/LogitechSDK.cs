@@ -113,6 +113,8 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
             ArrowRight = 0x14D,
             NumZero = 0x52,
             NumPeriod = 0x53,
+            NonUSBackslash = 0x56,
+            NonUSHash = 0x5d,
             G1 = 0xFFF1,
             G2 = 0xFFF2,
             G3 = 0xFFF3,
