@@ -52,23 +52,23 @@ namespace KSP_LogiRGB.ColorSchemes
         {
             if (FlightGlobals.ActiveVessel.evaController.JetpackDeployed)
             {
-                SetKeysToColor(packKeys, Color.yellow);
-                SetKeyToColor(GameSettings.EVA_TogglePack.primary.code, Color.green);
+                SetKeyCodesToColor(packKeys, Color.yellow);
+                SetKeyCodeToColor(GameSettings.EVA_TogglePack.primary.code, Color.green);
             }
             else
             {
-                SetKeysToColor(movementKeys, Color.white);
-                SetKeyToColor(GameSettings.EVA_TogglePack.primary.code, Color.red);
+                SetKeyCodesToColor(movementKeys, Color.white);
+                SetKeyCodeToColor(GameSettings.EVA_TogglePack.primary.code, Color.red);
             }
 
             if (FlightGlobals.ActiveVessel.evaController.lampOn)
-                SetKeyToColor(GameSettings.EVA_Lights.primary.code, Color.green);
+                SetKeyCodeToColor(GameSettings.EVA_Lights.primary.code, Color.green);
             else
-                SetKeyToColor(GameSettings.EVA_Lights.primary.code, Color.red);
+                SetKeyCodeToColor(GameSettings.EVA_Lights.primary.code, Color.red);
 
-            SetKeysToColor(useKeys, Color.cyan);
+            SetKeyCodesToColor(useKeys, Color.cyan);
 
-            SetKeysToColor(switchKeys, Color.blue);
+            SetKeyCodesToColor(switchKeys, Color.blue);
         }
     }
 }

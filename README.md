@@ -7,7 +7,7 @@
 Allows Kerbal Space Program to modify the lighting on your Logitech RGB Keyboard.
 Lights up your keyboard to make playing Kerbal Space Program a lot easier.
 
-**This is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to both for their significant work of which this fork is only a moderate update.**
+**This is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to both for their significant work.**
 
 The mod is still very beta, so let me know if you experience any difficulties when using it.
 
@@ -22,8 +22,9 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 - Function keys 1 to 0 are only lit, if the underlying action group actually does anything. The keys are displayed in two different colors, depending on whether the action group is toggled or not.
 - The keys for SAS, RCS, Gears, Lights and the Brakes are lit up in different colors, indicating if the respective system was activated or not.
 - The amount of resources in the current stage is displayed on your keypad and the keys to the left of it (PrtScr, ScrLk, ..., PageDown)
-- The color of W, A, S, D, E and Q varies slightly depending on whether you're in precision or normal steering mode
+- The color of the movement keys varies slightly depending on whether you're in precision or normal steering mode
 - The keys for timewarp control are lit either red for physics timewarp or green for normal timewarp
+- Automatic keyboard layout detection will automatically adapt to your operating system's keyboard layout, even if you change it mid-flight!
 
 ## Full list of game effects
 
@@ -36,8 +37,7 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 ## Installation
 
 1. Unzip the release archive and place the KSPLogiRGB folder in your KSP GameData directory.
-2. From either the lib32 or lib64 folder (depending on which KSP build you are using) copy the LogitechLedEnginesWrapper.dll file inside the GameRoot, where the KSP.exe and KSP_x64.exe are as well.
-3. Start KSP and witness the awesomeness of highlighted function keys while kerbaling through space
+2. Start KSP and witness the awesomeness of highlighted function keys while kerbaling through space
  
 ## Todo
 

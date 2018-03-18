@@ -13,13 +13,13 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         public VabScheme()
         {
-            SetKeysToColor(new[]
+            SetKeyCodesToColor(new[]
             {
                 GameSettings.Editor_pitchUp.primary.code, GameSettings.Editor_pitchDown.primary.code,
                 GameSettings.Editor_rollLeft.primary.code, GameSettings.Editor_rollRight.primary.code,
                 GameSettings.Editor_yawLeft.primary.code, GameSettings.Editor_yawRight.primary.code
             }, new Color(1f, 1f, 0f));
-            SetKeysToColor(new[]
+            SetKeyCodesToColor(new[]
             {
                 GameSettings.Editor_fineTweak.primary.code,
                 GameSettings.Editor_resetRotation.primary.code,

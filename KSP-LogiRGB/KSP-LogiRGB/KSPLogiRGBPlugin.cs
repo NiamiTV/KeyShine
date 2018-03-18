@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using KSP_LogiRGB.ColorSchemes;
+using KSP_LogiRGB.Layout;
+using KSP_LogiRGB.Layout.LayoutProviders.Windows;
+using KSP_LogiRGB.LEDControllers;
+using KSP_LogiRGB.LEDControllers.Logitech;
 using KSP_LogiRGB.SceneManagers;
 using UnityEngine;
 
@@ -9,34 +13,36 @@ namespace KSP_LogiRGB
     ///     The main class, managing the keyboard appearance for every kind of scene KSP
     ///     uses.
     /// </summary>
-    [KSPAddon(KSPAddon.Startup.EveryScene, false)]
-    public class KSPChromaPlugin : MonoBehaviour
+    [KSPAddon(KSPAddon.Startup.Instantly, true)]
+    public class KSPLogitechRGBPlugin : MonoBehaviour
     {
-        public static KSPChromaPlugin fetch;
-        private readonly List<DataDrain> dataDrains = new List<DataDrain>();
+        public static KSPLogitechRGBPlugin Instance;
+
+        public ILayoutProvider LayoutProvider { get; private set; }
+
+        private readonly List<ILEDController> _ledControllers = new List<ILEDController>();
+
+        private readonly SceneManager _flightSceneManager = new FlightSceneManager();
+
+        private readonly SceneManager _vabSceneManager = new VABSceneManager();
 
         /// <summary>
-        ///     The UDP network socket to send keyboard appearance orders to the server.
+        ///     Called by unity during the launch of KSP. It will only be run once. So make sure it doesn't
+        ///     crash.
         /// </summary>
-        private readonly SceneManager flightSceneManager = new FlightSceneManager();
-
-        private readonly SceneManager vabSceneManager = new VABSceneManager();
-
-        /// <summary>
-        ///     Called by unity during the launch of this addon.
-        /// </summary>
-        private void Awake()
+        private void Start()
         {
-            fetch = this;
-            dataDrains.Add(new LogitechDrain());
+            Instance = this;
+            _ledControllers.Add(new LogitechLEDController());
+            LayoutProvider = new WindowsLayoutProvider();
+            DontDestroyOnLoad(this);
         }
-        
+
         /// <summary>
         ///     Called by unity on every physics frame.
         /// </summary>
         private void Update()
         {
-            
             ColorScheme scheme;
 
             if (AnimationManager.Instance.animationRunning())
@@ -48,10 +54,10 @@ namespace KSP_LogiRGB
                 switch (HighLogic.LoadedScene)
                 {
                     case GameScenes.FLIGHT:
-                        scheme = flightSceneManager.getScheme();
+                        scheme = _flightSceneManager.getScheme();
                         break;
                     case GameScenes.EDITOR:
-                        scheme = vabSceneManager.getScheme();
+                        scheme = _vabSceneManager.getScheme();
                         break;
                     default:
                         scheme = new LogoScheme();
@@ -59,7 +65,7 @@ namespace KSP_LogiRGB
                 }
             }
 
-            dataDrains.ForEach(drain => drain.send(scheme));
+            _ledControllers.ForEach(controller => controller.Send(scheme));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using KSP_LogiRGB.ColorSchemes;
+﻿using KSP_LogiRGB.ColorSchemes;
 using UnityEngine;
 
 namespace KSP_LogiRGB
@@ -35,8 +34,8 @@ namespace KSP_LogiRGB
                 KeyCode.RightAlt
             };
 
-            blue.SetKeysToColor(lightningKeys, Color.white);
-            red.SetKeysToColor(lightningKeys, Color.blue);
+            blue.SetAbsoluteKeysToColor(lightningKeys, Color.white);
+            red.SetAbsoluteKeysToColor(lightningKeys, Color.blue);
         }
 
         /// <summary>
