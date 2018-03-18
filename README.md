@@ -9,6 +9,8 @@ Lights up your keyboard to make playing Kerbal Space Program a lot easier.
 
 **This is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to both for their significant work.**
 
+Thanks to @RandyTheDev for major contributions and new features, including multiple keyboard layout support. See the [changelog here](https://github.com/battlemoose/ksp-logirgb/pull/1).
+
 The mod is still very beta, so let me know if you experience any difficulties when using it.
 
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
