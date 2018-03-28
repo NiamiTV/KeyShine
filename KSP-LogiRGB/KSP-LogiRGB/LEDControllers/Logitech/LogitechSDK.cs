@@ -283,8 +283,8 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
                 var dllDir = Path.GetDirectoryName(
                     new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
                 Debug.Assert(dllDir != null, nameof(dllDir) + " != null");
-                var apiDir = Path.Combine(Path.Combine(dllDir, "Logitech"), platform);
-                return Path.Combine(apiDir, "LogitechLedEnginesWrapper.dll");
+                var apiDir = Path.Combine(dllDir, "Logitech");
+                return Path.Combine(apiDir, "LogitechLedEnginesWrapper.nativedll." + platform);
             }
         }
 
