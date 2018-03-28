@@ -22,7 +22,7 @@ using static KSP_LogiRGB.LEDControllers.Logitech.LogitechSDK;
 
 namespace KSP_LogiRGB.LEDControllers.Logitech
 {
-    internal class LogitechLEDController : ILEDController
+    public class LogitechLEDController : ILEDController
     {
         /// <summary>
         ///     Unity <c>KeyCode</c>s to Logitech layout translation dictionary
