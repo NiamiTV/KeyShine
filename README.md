@@ -46,3 +46,5 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 ## Todo
 
 - Add CatastrophicFailure event animation.
+- Add deep customisation for most colours
+- Add support for more keyboards
