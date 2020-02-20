@@ -49,10 +49,6 @@ namespace KSP_LogiRGB
         private void Update()
         {
             ColorScheme scheme;
-            if(HighLogic.LoadedScene == GameScenes.FLIGHT)
-            {
-                print(FlightGlobals.fetch.activeVessel.LandedOrSplashed);
-            }
             if (AnimationManager.Instance.animationRunning())
             {
                 scheme = AnimationManager.Instance.getFrame();

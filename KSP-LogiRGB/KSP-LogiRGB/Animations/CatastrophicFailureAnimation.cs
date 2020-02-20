@@ -19,7 +19,7 @@ namespace KSP_LogiRGB
         private static readonly ColorScheme blue = new ColorScheme(Color.blue);
 
         /// <summary>
-        ///     Static constructor adds lightning bolts in different colors to both frames
+        ///     Static constructor adds a warning symbol in different colors to both frames
         /// </summary>
         static CatastrophicFailureAnimation()
         {

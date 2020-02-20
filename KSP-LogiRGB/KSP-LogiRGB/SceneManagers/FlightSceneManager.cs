@@ -1,9 +1,9 @@
-﻿using System;
+﻿using KSP.UI.Screens;
+using KSP_LogiRGB.ColorSchemes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using KSP_LogiRGB.ColorSchemes;
 using UnityEngine;
-using KSP.UI.Screens;
 
 namespace KSP_LogiRGB.SceneManagers
 {
@@ -51,8 +51,6 @@ namespace KSP_LogiRGB.SceneManagers
         public FlightSceneManager()
         {
             resetActionGroups();
-
-            
         }
 
         /// <summary>
@@ -100,9 +98,9 @@ namespace KSP_LogiRGB.SceneManagers
             else if (!currentVessel.IsControllable)
             {
                 AnimationManager.Instance.setAnimation(new PowerLostAnimation());
-            } 
-            else if (FlightGlobals.fetch.activeVessel.situation  ==Vessel.Situations.SPLASHED)
-            {               
+            }
+            else if (FlightGlobals.fetch.activeVessel.situation == Vessel.Situations.SPLASHED)
+            {
                 AnimationManager.Instance.setAnimation(new SplashDownAnimation());
             }
             else
@@ -168,15 +166,18 @@ namespace KSP_LogiRGB.SceneManagers
         /// <param name="maxAmount">The maximal amount of the resource in the current stage</param>
         private void showGauge(string resource, double amount, double maxAmount)
         {
+            double frequency = 0.333;
+            bool ledOn;
+
             Func<Color, int, Color> partialColor = (original, third) =>
             {
                 var newColor = new Color(original.r, original.g, original.b, original.a);
-                var ceiling = maxAmount/3*(third + 1);
-                var floor = maxAmount/3*third;
+                var ceiling = maxAmount / 3 * (third + 1);
+                var floor = maxAmount / 3 * third;
 
                 if (amount <= ceiling)
                 {
-                    var factor = (float) ((amount - floor)/(ceiling - floor));
+                    var factor = (float)((amount - floor) / (ceiling - floor));
                     newColor.r *= factor;
                     newColor.g *= factor;
                     newColor.b *= factor;
@@ -194,36 +195,92 @@ namespace KSP_LogiRGB.SceneManagers
                 }
             };
 
+            Action<KeyCode[], Color> displayFuelAlert = (keys, color) =>
+            {
+                ledOn = (int)(Math.Truncate(Time.time / frequency)) % 2 != 0;
+                if (ledOn)
+                {
+                    currentColorScheme.SetKeyCodesToColor(keys, new Color32(100, 0, 0, 255));
+                }
+                else
+                {
+                    displayFuel(keys, color);
+                }
+            };
+
             switch (resource)
             {
+
                 case "ElectricCharge":
-                    KeyCode[] electric = {KeyCode.Print, KeyCode.ScrollLock, KeyCode.Pause};
-                    displayFuel(electric, Color.blue);
+                    KeyCode[] electric = { KeyCode.Print, KeyCode.ScrollLock, KeyCode.Pause };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(electric, Color.blue);                     
+                    }
+                    else
+                    {
+                        displayFuel(electric, Color.blue);
+                    }
                     break;
                 case "LiquidFuel":
-                    KeyCode[] liquid = {KeyCode.Numlock, KeyCode.KeypadDivide, KeyCode.KeypadMultiply};
-                    displayFuel(liquid, Color.green);
+                    KeyCode[] liquid = { KeyCode.Numlock, KeyCode.KeypadDivide, KeyCode.KeypadMultiply };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(liquid, Color.green);
+                    }
+                    else
+                    {
+                        displayFuel(liquid, Color.green);
+                    }
                     break;
                 case "Oxidizer":
-                    KeyCode[] oxidizer = {KeyCode.Keypad7, KeyCode.Keypad8, KeyCode.Keypad9};
-                    displayFuel(oxidizer, Color.cyan);
+                    KeyCode[] oxidizer = { KeyCode.Keypad7, KeyCode.Keypad8, KeyCode.Keypad9 };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(oxidizer, Color.cyan);
+                    }
+                    else
+                    {
+                        displayFuel(oxidizer, Color.cyan);
+                    }
                     break;
                 case "MonoPropellant":
                 case "EVAFuel":
-                    KeyCode[] monoprop = {KeyCode.Keypad4, KeyCode.Keypad5, KeyCode.Keypad6};
-                    displayFuel(monoprop, Color.yellow);
+                    KeyCode[] monoprop = { KeyCode.Keypad4, KeyCode.Keypad5, KeyCode.Keypad6 };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(monoprop, Color.yellow);
+                    }
+                    else
+                    {
+                        displayFuel(monoprop, Color.yellow);
+                    }
                     break;
                 case "SolidFuel":
-                    KeyCode[] solid = {KeyCode.Keypad1, KeyCode.Keypad2, KeyCode.Keypad3};
+                    KeyCode[] solid = { KeyCode.Keypad1, KeyCode.Keypad2, KeyCode.Keypad3 };
                     displayFuel(solid, Color.magenta);
                     break;
                 case "Ablator":
-                    KeyCode[] ablator = {KeyCode.Delete, KeyCode.End, KeyCode.PageDown};
-                    displayFuel(ablator, new Color(244, 259, 0, 255));
+                    KeyCode[] ablator = { KeyCode.Delete, KeyCode.End, KeyCode.PageDown };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(ablator, new Color(244, 259, 0, 255));
+                    }
+                    else
+                    {
+                        displayFuel(ablator, new Color(244, 259, 0, 255));
+                    }
                     break;
                 case "XenonGas":
-                    KeyCode[] xenon = {KeyCode.Insert, KeyCode.Home, KeyCode.PageUp};
-                    displayFuel(xenon, Color.gray);
+                    KeyCode[] xenon = { KeyCode.Insert, KeyCode.Home, KeyCode.PageUp };
+                    if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
+                    {
+                        displayFuelAlert(xenon, Color.gray);
+                    }
+                    else
+                    {
+                        displayFuel(xenon, Color.gray);
+                    }
                     break;
                 default:
                     break;
@@ -366,14 +423,14 @@ namespace KSP_LogiRGB.SceneManagers
             {
                 var floor = i > 0 ? Math.Pow(10, i - 1) : 0;
                 var ceiling = Math.Pow(10, i);
-                var vesselHeight = calculateDistanceFromGround();
+                var vesselHeight = GetDistanceFromGround();
                 Color newColor = new Color32(0, 100, 100, 255);
 
                 if (vesselHeight > ceiling)
                     currentColorScheme.SetKeyCodeToColor(heightScaleKeys[i], newColor);
                 else if (vesselHeight > floor)
                 {
-                    var factor = (float) ((vesselHeight - floor)/(ceiling - floor));
+                    var factor = (float)((vesselHeight - floor) / (ceiling - floor));
                     newColor.r *= factor;
                     newColor.g *= factor;
                     newColor.b *= factor;
@@ -383,44 +440,22 @@ namespace KSP_LogiRGB.SceneManagers
         }
 
         /// <summary>
-        ///     Calculates the ground distance for the vessel.
+        ///     Gets the ground distance for the vessel. 
+        ///     If distance to ground is less than 1m it returns 0 to display accurately
+        ///     If distance to ground is above 10km it uses orbit altitude
         /// </summary>
         /// <returns></returns>
-        private double calculateDistanceFromGround()
+        private double GetDistanceFromGround()
         {
-            var CoM = currentVessel.CoM; //Gets centre of mass
-            Vector3 up = FlightGlobals.getUpAxis(CoM); //Gets up axis (needed for the raycast)
-            var ASL = FlightGlobals.getAltitudeAtPos(CoM);
-            RaycastHit craft;
-            float trueAlt;
-            float surfaceAlt;
-            float bottomAlt;
-
-            if (Physics.Raycast(CoM, -up, out craft, ASL + 10000f, 1 << 15))
+            if (currentVessel.GetHeightFromTerrain() < 1)
             {
-                trueAlt = Mathf.Min(ASL, craft.distance); //Smallest value between ASL and distance from ground
+                return 0;
             }
-
-            else
+            if (currentVessel.GetHeightFromTerrain() == -1)
             {
-                trueAlt = ASL;
+                return currentVessel.GetOrbit().altitude;
             }
-
-            surfaceAlt = ASL - trueAlt;
-            bottomAlt = trueAlt; //Initiation to be sure the loop doesn't return a false value
-            foreach (var p in currentVessel.parts)
-            {
-                if (p.collider != null) //Makes sure the part actually has a collider to touch ground
-                {
-                    var bottom = p.collider.ClosestPointOnBounds(currentVessel.mainBody.position);
-                    //Gets the bottom point
-                    var partAlt = FlightGlobals.getAltitudeAtPos(bottom) - surfaceAlt; //Gets the looped part alt
-                    bottomAlt = Mathf.Max(0, Mathf.Min(bottomAlt, partAlt));
-                    //Stores the smallest value in all the parts
-                }
-            }
-
-            return bottomAlt;
+            return currentVessel.GetHeightFromTerrain();
         }
     }
 }

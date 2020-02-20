@@ -21,6 +21,12 @@ namespace KSP_LogiRGB
         public readonly KeyValuePair<Color, Color> redOrangeToggle = new KeyValuePair<Color, Color>(Color.red,
             new Color32(255, 100, 0, 255));
 
+        /// <summary>
+        ///     Percentage limit which triggers low resource alert
+        /// </summary>
+
+        public readonly float LowResourceAlert = 0.1f;
+
         private Config()
         {
             actionGroupConf = new Dictionary<KSPActionGroup, KeyValuePair<KeyBinding, KeyValuePair<Color, Color>>>

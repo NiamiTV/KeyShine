@@ -11,7 +11,7 @@ namespace KSP_LogiRGB
         /// <summary>
         ///     The first frame
         /// </summary>        
-        private static readonly ColorScheme Wave1 = new ColorScheme(Color.black);
+        private static readonly ColorScheme Wave1 = new ColorScheme(new Color32(0,9,120,255));
 
         /// <summary>
         ///     The second frame
@@ -30,13 +30,13 @@ namespace KSP_LogiRGB
                 KeyCode.C,KeyCode.F,KeyCode.T,KeyCode.Alpha6,KeyCode.F5,
                 KeyCode.B,KeyCode.H,KeyCode.U,KeyCode.Alpha8,KeyCode.F7,
                 KeyCode.M,KeyCode.K,KeyCode.O,KeyCode.Alpha0,KeyCode.F9,
-                KeyCode.Period,KeyCode.Colon,KeyCode.LeftBracket,KeyCode.Equals,KeyCode.F11,
+                KeyCode.Period,KeyCode.Semicolon,KeyCode.LeftBracket,KeyCode.Equals,KeyCode.F11,
                 KeyCode.Menu,KeyCode.RightShift,KeyCode.Return,KeyCode.BackQuote
 
             };
 
             Wave1.SetAbsoluteKeysToColor(WaveKeys, Color.blue);
-            Wave2.SetAbsoluteKeysToColor(WaveKeys, Color.black);
+            Wave2.SetAbsoluteKeysToColor(WaveKeys, new Color32(0, 9, 120, 255));
             
         }
 
@@ -59,12 +59,11 @@ namespace KSP_LogiRGB
             if (HighLogic.LoadedScene != GameScenes.FLIGHT)
                 return true;
 
+            /// Exits if craft is no longer splashed down
             if (FlightGlobals.fetch.activeVessel.situation != Vessel.Situations.SPLASHED)
-                return true;
-            
+                return true;     
 
-
-            return false; /// Keep playing until scene change
+            return false;
 
         }
     }
