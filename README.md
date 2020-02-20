@@ -45,4 +45,4 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
  
 ## Todo
 
-- Add CatastrophicFailure event and SplashedDown event animation.
+- Add CatastrophicFailure event animation.
