@@ -4,7 +4,7 @@
 
 **[Old Forum Thread by Kaeltis](http://forum.kerbalspaceprogram.com/index.php?/topic/137859-11-ksp-logitech-rgb-control-v101-2016-22-04/)**
 
-I will try update and maintain this for future versions of KSP, currently at 1.9. This was left off at version 1.5 by @battlemoose and I will attempt to update it from now on.
+I will try update and maintain this for future versions of KSP, currently at 1.9. This was left off at version 1.5 by @battlemoose and I will attempt to update it from now on as it hasn't been updated by battlemoose for over a year.
 
 Allows Kerbal Space Program to modify the lighting on your Logitech RGB Keyboard.
 Lights up your keyboard to make playing Kerbal Space Program a lot easier.
