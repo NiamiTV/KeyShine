@@ -1,6 +1,6 @@
 # KSP Logitech RGB Control
 
-**KSP Community Forum Thread Yet - to add**
+**[KSP Community Forum Thread[(https://forum.kerbalspaceprogram.com/index.php?/topic/191814-19-ksp-logitech-rgb-integration-v13)**
 
 **[Old Forum Thread by Battlemoose](https://forum.kerbalspaceprogram.com/index.php?/topic/169895-14-ksp-logitech-rgb-control-v111-2018-06-02/)**
 
