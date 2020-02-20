@@ -19,13 +19,12 @@ namespace KSP_LogiRGB
         private static readonly ColorScheme Wave2 = new ColorScheme(Color.blue);
 
         /// <summary>
-        ///     Static constructor adds lightning bolts in different colors to both frames
+        ///     Static constructor adds waves in different places to both frames
         /// </summary>
         static SplashDownAnimation ()
         {
             KeyCode[] WaveKeys =
             {
-                /// First wave
                 KeyCode.BackQuote,KeyCode.CapsLock,KeyCode.Q,KeyCode.Alpha2,KeyCode.F2,
                 KeyCode.LeftWindows,KeyCode.Z,KeyCode.S,KeyCode.E,KeyCode.Alpha4,KeyCode.F4,
                 KeyCode.C,KeyCode.F,KeyCode.T,KeyCode.Alpha6,KeyCode.F5,
