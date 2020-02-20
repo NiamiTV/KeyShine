@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\AnimationManager.cs" />
+    <Compile Include="Animations\CatastrophicFailureAnimation.cs" />
     <Compile Include="Animations\KeyboardAnimation.cs" />
     <Compile Include="Animations\PowerLostAnimation.cs" />
+    <Compile Include="Animations\SplashDownAnimation.cs" />
     <Compile Include="ColorSchemes\ColorScheme.cs" />
     <Compile Include="ColorSchemes\EVAScheme.cs" />
     <Compile Include="ColorSchemes\FlightScheme.cs" />
@@ -85,7 +87,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll" "C:\Programs\KSP\GameData\KSPLogiRGB"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll" "D:\SteamLibrary\steamapps\common\Kerbal Space Program\GameData\KSPLogiRGB"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

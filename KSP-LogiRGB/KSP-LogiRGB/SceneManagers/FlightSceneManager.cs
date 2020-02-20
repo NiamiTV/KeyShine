@@ -51,6 +51,8 @@ namespace KSP_LogiRGB.SceneManagers
         public FlightSceneManager()
         {
             resetActionGroups();
+
+            
         }
 
         /// <summary>
@@ -98,6 +100,10 @@ namespace KSP_LogiRGB.SceneManagers
             else if (!currentVessel.IsControllable)
             {
                 AnimationManager.Instance.setAnimation(new PowerLostAnimation());
+            } 
+            else if (FlightGlobals.fetch.activeVessel.situation  ==Vessel.Situations.SPLASHED)
+            {               
+                AnimationManager.Instance.setAnimation(new SplashDownAnimation());
             }
             else
             {

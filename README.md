@@ -45,5 +45,4 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
  
 ## Todo
 
-- Make the whole keyboard red, if the vessel is not steerable any more.
 - Add CatastrophicFailure event and SplashedDown event animation.

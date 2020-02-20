@@ -1,39 +1,38 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-// Allgemeine Informationen über eine Assembly werden über die folgenden 
-// Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
-// die einer Assembly zugeordnet sind.
+//General information about an assembly is controlled by the following attributes.
+//Change these attribute values to change the information associated with an assembly.
+
 
 [assembly: AssemblyTitle("KSP-LogiRGB")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("KSP-LogiRGB")]
-[assembly: AssemblyCopyright("Copyright © 2016-2018")]
+[assembly: AssemblyCopyright("Copyright © 2016-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Durch Festlegen von ComVisible auf "false" werden die Typen in dieser Assembly unsichtbar 
-// für COM-Komponenten.  Wenn Sie auf einen Typ in dieser Assembly von 
-// COM aus zugreifen müssen, sollten Sie das ComVisible-Attribut für diesen Typ auf "True" festlegen.
+//By setting ComVisible to "false", the types in this assembly become invisible to COM components.
+//If you need to access a type in this assembly from COM, you should set the ComVisible attribute for that type to "True".
 
 [assembly: ComVisible(false)]
 
-// Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
+// The following GUID determines the ID of the type library when this project is made available for COM
 
 [assembly: Guid("ad5d4913-01df-4771-827a-16937f3fd115")]
 
-// Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
+// Version information for an assembly consists of the following four values:
 //
-//      Hauptversion
-//      Nebenversion 
-//      Buildnummer
-//      Revision
+// major version
+// minor version
+// build number
+// revision
 //
-// Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
-// übernehmen, indem Sie "*" eingeben:
-// [assembly: AssemblyVersion("1.0.*")]
+// You can specify all values or the default build and revision numbers
+// accept by typing "*":
+// [assembly: AssemblyVersion ("1.0. *")]
 
 [assembly: AssemblyVersion("1.1.1.0")]
 [assembly: AssemblyFileVersion("1.1.1.0")]
