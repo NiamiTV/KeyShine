@@ -1,15 +1,15 @@
 # KSP Logitech RGB Control
 
-**KSP Community Forum Thread Yet - to add**
+**[KSP Community Forum Thread](https://forum.kerbalspaceprogram.com/index.php?/topic/191814-19-ksp-logitech-rgb-integration-v13)**
 
-**[Old Forum Thread by Kaeltis](http://forum.kerbalspaceprogram.com/index.php?/topic/137859-11-ksp-logitech-rgb-control-v101-2016-22-04/)**
+**[Old Forum Thread by Battlemoose](https://forum.kerbalspaceprogram.com/index.php?/topic/169895-14-ksp-logitech-rgb-control-v111-2018-06-02/)**
 
 I will try update and maintain this for future versions of KSP, currently at 1.9. This was left off at version 1.5 by @battlemoose and I will attempt to update it from now on as it hasn't been updated by battlemoose for over a year.
 
 Allows Kerbal Space Program to modify the lighting on your Logitech RGB Keyboard.
 Lights up your keyboard to make playing Kerbal Space Program a lot easier.
 
-**This is a fork of @battlemoose's [ksp-logirgb](https://github.com/battlemoose/ksp-logirgb/) which is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to both for their significant work.**
+**This is a fork of @battlemoose's [ksp-logirgb](https://github.com/battlemoose/ksp-logirgb/) which is a fork of @Kaeltis' [ksp-logirgb plugin](https://github.com/Kaeltis/ksp-logirgb) which in turn is a fork of @cguckes' [ksp-chroma plugin](https://github.com/cguckes/ksp-chroma). Thanks to all of them for their significant work.**
 
 Thanks to @RandyTheDev for major contributions and new features, including multiple keyboard layout support. See the [changelog here](https://github.com/battlemoose/ksp-logirgb/pull/1).
 
@@ -46,3 +46,5 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 ## Todo
 
 - Add CatastrophicFailure event animation.
+- Add deep customisation for most colours
+- Add support for more keyboards
