@@ -28,6 +28,12 @@ namespace KSP_LogiRGB.SceneManagers
             GameSettings.TIME_WARP_DECREASE.primary.code
         };
 
+        private static readonly KeyCode[] throttlekeys =
+        {
+            GameSettings.THROTTLE_UP.primary.code,
+            GameSettings.THROTTLE_DOWN.primary.code
+        };
+
         /// <summary>
         ///     Contains all ActionGroups and their current usage state. False means
         ///     this ActionGroup has no impact on any part of the vessel.
@@ -109,6 +115,7 @@ namespace KSP_LogiRGB.SceneManagers
                 recalculateResources();
                 updateToggleables();
                 updateStaging();
+                displayThrottle();
             }
             displayVesselHeight();
         }
@@ -118,7 +125,9 @@ namespace KSP_LogiRGB.SceneManagers
         ///     that has any active parts gets a toggleing button lit up.
         /// </summary>
         private void findUsableActionGroups()
-        {
+        {          
+
+
             var allActionsList = new List<BaseAction>();
 
             foreach (var p in currentVessel.parts)
@@ -156,6 +165,32 @@ namespace KSP_LogiRGB.SceneManagers
                 currentVessel.GetConnectedResourceTotals(enumerator.Current.id, out amount, out maxAmount);
                 showGauge(enumerator.Current.name, amount, maxAmount);
             }
+        }
+
+        /// <summary>
+        ///     Displays throttle on the throttle up/down keys
+        /// </summary>
+        private void displayThrottle()
+        {
+            float throttle = currentVessel.ctrlState.mainThrottle;
+                        
+            Color32 ThrottleUpColor = Config.Instance.ThrottleColour;
+            Color32 ThrottleDownColor = Config.Instance.ThrottleColour;
+            
+            ThrottleUpColor.r = (byte)(Config.Instance.ThrottleColour.r * throttle);
+            ThrottleDownColor.r = (byte)(Config.Instance.ThrottleColour.r * (1f - throttle));
+            ThrottleUpColor.g = (byte)(Config.Instance.ThrottleColour.g * throttle);
+            ThrottleDownColor.g = (byte)(Config.Instance.ThrottleColour.g * (1f - throttle));
+            ThrottleUpColor.b = (byte)(Config.Instance.ThrottleColour.b * throttle);
+            ThrottleDownColor.b = (byte)(Config.Instance.ThrottleColour.b * (1f - throttle));
+            ThrottleUpColor.a = 255;
+            ThrottleDownColor.a = 255;
+            
+            KeyCode ThrottleUp = GameSettings.THROTTLE_UP.primary.code;
+            KeyCode ThrottleDown = GameSettings.THROTTLE_DOWN.primary.code;
+
+            currentColorScheme.SetKeyCodeToColor(ThrottleUp, ThrottleUpColor);
+            currentColorScheme.SetKeyCodeToColor(ThrottleDown, ThrottleDownColor);
         }
 
         /// <summary>

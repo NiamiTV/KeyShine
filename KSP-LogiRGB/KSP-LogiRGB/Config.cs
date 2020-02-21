@@ -24,8 +24,13 @@ namespace KSP_LogiRGB
         /// <summary>
         ///     Percentage limit which triggers low resource alert
         /// </summary>
-
         public readonly float LowResourceAlert = 0.1f;
+
+        /// <summary>
+        ///     Colour of dynamic throttle
+        /// </summary>
+        public readonly Color32 ThrottleColour = new Color32(255,0,0,255);
+
 
         private Config()
         {
