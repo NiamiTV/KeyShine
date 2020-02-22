@@ -41,7 +41,7 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 ## Installation
 
 1. Unzip the release archive and place the KSPLogiRGB folder in your KSP GameData directory.
-2. Download Logitech GHub and create a profile that is linked to your KSP install.
+2. Download Logitech GHub and create a profile that is linked to your KSP install. Set all keys to black so there is no interference with the add on. 
 3. Start KSP and witness the awesomeness of highlighted function keys while kerbaling through space
  
 ## Todo
