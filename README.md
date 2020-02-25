@@ -17,10 +17,6 @@ The mod is still very beta, so let me know if you experience any difficulties wh
 
 *All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.*
 
-##### MiniAVC
-
-This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogram.com/threads/79745). If you opt-in, it will use the internet to check whether there is a new version available. Data is only read from the internet and no personal information is sent. For a more comprehensive version checking experience, please download the [KSP-AVC Plugin](http://forum.kerbalspaceprogram.com/threads/79745).
-
 ## Features
 
 - Function keys 1 to 0 are only lit, if the underlying action group actually does anything. The keys are displayed in two different colors, depending on whether the action group is toggled or not.
@@ -41,7 +37,8 @@ This mod includes version checking using [MiniAVC](http://forum.kerbalspaceprogr
 ## Installation
 
 1. Unzip the release archive and place the KSPLogiRGB folder in your KSP GameData directory.
-2. Start KSP and witness the awesomeness of highlighted function keys while kerbaling through space
+2. Download Logitech GHub and create a profile that is linked to your KSP install. Set all keys to black so there is no interference with the add on. 
+3. Start KSP and witness the awesomeness of highlighted function keys while kerbaling through space
  
 ## Todo
 
