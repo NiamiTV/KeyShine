@@ -126,8 +126,6 @@ namespace KSP_LogiRGB.SceneManagers
         /// </summary>
         private void findUsableActionGroups()
         {          
-
-
             var allActionsList = new List<BaseAction>();
 
             foreach (var p in currentVessel.parts)
@@ -166,6 +164,31 @@ namespace KSP_LogiRGB.SceneManagers
                 showGauge(enumerator.Current.name, amount, maxAmount);
             }
         }
+
+
+        /// <summary>
+        ///     Checks if the craft is overheating and displays it on the keyboard
+        /// </summary>
+        private void getOverheat()
+        {
+            var allPartsTempRatio = new List<double>();
+            
+            foreach (var p in currentVessel.parts)
+            {
+                allPartsTempRatio.Add(p.temperature / p.maxTemp);
+            }
+
+            double TempRatioAvg = 0d;
+
+            foreach (var item in allPartsTempRatio)
+            {
+                TempRatioAvg += item;
+            }
+            TempRatioAvg /= allPartsTempRatio.Count;            
+        }   
+
+
+
 
         /// <summary>
         ///     Displays throttle on the throttle up/down keys

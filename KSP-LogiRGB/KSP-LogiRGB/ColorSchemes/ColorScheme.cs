@@ -89,6 +89,15 @@ namespace KSP_LogiRGB.ColorSchemes
         }
 
         /// <summary>
+        ///     Sets the base color
+        /// </summary>
+        /// <param name="color">The color to change the base color to</param>
+        public void SetBaseColor(Color color)
+        {
+            BaseColor = color;
+        }
+
+        /// <summary>
         ///     Sets an absolute key to the defined color.
         /// </summary>
         /// <param name="key"></param>

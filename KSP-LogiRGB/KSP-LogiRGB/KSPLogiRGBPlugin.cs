@@ -49,10 +49,36 @@ namespace KSP_LogiRGB
         private void Update()
         {
             ColorScheme scheme;
-            //if (HighLogic.LoadedScene == GameScenes.FLIGHT)
-            //{                
+            if (HighLogic.LoadedScene == GameScenes.FLIGHT)
+            {
+                /* removed to not spam console
+                var PartThermal = new List<PartThermalData>();
 
-            //}
+                foreach (var p in FlightGlobals.fetch.activeVessel.parts)
+                {
+                    PartThermal.Add(new PartThermalData(p));
+
+                    foreach (var item in PartThermal)
+                    {
+                        foreach (var item2 in item.overheatModules)
+                        {
+                           
+                        }
+                    }
+                    
+                }
+                
+
+                List<string> entries = new List<string>();
+
+                foreach (var entry in )
+                {
+                                       
+                }
+                */
+                
+                print(FlightGlobals.fetch.activeVessel.CurrentControlLevel);
+            }
             if (AnimationManager.Instance.animationRunning())
             {
                 scheme = AnimationManager.Instance.getFrame();
