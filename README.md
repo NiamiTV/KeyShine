@@ -1,4 +1,4 @@
-# KSP Logitech RGB Control
+# KeyShine - KSP Logitech RGB Control
 
 **[KSP Community Forum Thread](https://forum.kerbalspaceprogram.com/index.php?/topic/191814-19-ksp-logitech-rgb-integration-v13)**
 
