@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
+namespace KeyShine.Layout.LayoutProviders.Windows
 {
     internal static class User32
     {

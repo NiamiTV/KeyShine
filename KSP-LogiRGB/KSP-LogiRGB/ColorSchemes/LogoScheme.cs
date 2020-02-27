@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KSP_LogiRGB.ColorSchemes
+namespace KeyShine.ColorSchemes
 {
     /// <summary>
     ///     Displays an image on the keyboard vaguely similar to the logo minus the

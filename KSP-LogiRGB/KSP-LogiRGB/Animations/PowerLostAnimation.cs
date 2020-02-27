@@ -1,7 +1,7 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 using UnityEngine;
 
-namespace KSP_LogiRGB
+namespace KeyShine
 {
     /// <summary>
     ///     Displays a warning on the keyboard, indicating that the vessel is currently out of power and cannot

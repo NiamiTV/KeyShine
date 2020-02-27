@@ -16,11 +16,11 @@
 
 using System;
 using System.Collections.Generic;
-using KSP_LogiRGB.ColorSchemes;
+using KeyShine.ColorSchemes;
 using UnityEngine;
-using static KSP_LogiRGB.LEDControllers.Logitech.LogitechSDK;
+using static KeyShine.LEDControllers.Logitech.LogitechSDK;
 
-namespace KSP_LogiRGB.LEDControllers.Logitech
+namespace KeyShine.LEDControllers.Logitech
 {
     public class LogitechLEDController : ILEDController
     {
@@ -228,7 +228,7 @@ namespace KSP_LogiRGB.LEDControllers.Logitech
             foreach (var entry in colorScheme.MappedKeys)
             {
                 
-                var qwertyKey = KSPLogitechRGBPlugin.Instance.LayoutProvider.ConvertToQwertyCode(entry.Key);
+                var qwertyKey = KeyShine.Instance.LayoutProvider.ConvertToQwertyCode(entry.Key);
 
                 if (KeyMapping.ContainsKey(qwertyKey))
                 {

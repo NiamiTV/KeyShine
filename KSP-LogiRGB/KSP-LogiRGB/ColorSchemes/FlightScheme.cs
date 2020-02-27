@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KSP_LogiRGB.ColorSchemes
+namespace KeyShine.ColorSchemes
 {
     /// <summary>
     ///     The base color scheme for all flight related game scenes.

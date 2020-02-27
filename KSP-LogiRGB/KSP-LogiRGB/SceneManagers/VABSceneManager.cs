@@ -1,7 +1,7 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 using UnityEngine;
 
-namespace KSP_LogiRGB.SceneManagers
+namespace KeyShine.SceneManagers
 {
     /// <summary>
     ///     Manages the keyboard colors for VAB and SPH scenes.

@@ -1,6 +1,6 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 
-namespace KSP_LogiRGB.LEDControllers
+namespace KeyShine.LEDControllers
 {
     /// <summary>
     ///     Implement this to use the mod with other devices.

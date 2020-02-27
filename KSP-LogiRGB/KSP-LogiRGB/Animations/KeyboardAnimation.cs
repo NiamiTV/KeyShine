@@ -1,6 +1,6 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 
-namespace KSP_LogiRGB
+namespace KeyShine
 {
     /// <summary>
     ///     Implement this to create an animation on your keyboard.

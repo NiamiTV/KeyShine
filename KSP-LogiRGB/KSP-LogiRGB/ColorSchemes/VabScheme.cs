@@ -1,7 +1,7 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 using UnityEngine;
 
-namespace KSP_LogiRGB.SceneManagers
+namespace KeyShine.SceneManagers
 {
     /// <summary>
     ///     Contains the base color scheme for all VAB and SPH scenes.

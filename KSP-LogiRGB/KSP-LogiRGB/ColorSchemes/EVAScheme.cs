@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KSP_LogiRGB.ColorSchemes
+namespace KeyShine.ColorSchemes
 {
     /// <summary>
     ///     Special color scheme for EVA scenes.

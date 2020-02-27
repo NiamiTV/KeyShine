@@ -16,7 +16,7 @@
 
 using System;
 
-namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
+namespace KeyShine.Layout.LayoutProviders.Windows
 {
     internal class WindowsTemporaryLayout: ITemporaryLayout
     {

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace KSP_LogiRGB.Layout
+namespace KeyShine.Layout
 {
     public interface ITemporaryLayout: IDisposable
     {

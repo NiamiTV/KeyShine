@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KSP_LogiRGB.Layout.LayoutProviders.Windows
+namespace KeyShine.Layout.LayoutProviders.Windows
 {
     public class WindowsLayoutProvider : ILayoutProvider
     {

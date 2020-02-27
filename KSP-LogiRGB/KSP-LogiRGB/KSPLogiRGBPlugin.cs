@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
-using KSP_LogiRGB.ColorSchemes;
-using KSP_LogiRGB.Layout;
-using KSP_LogiRGB.Layout.LayoutProviders.Windows;
-using KSP_LogiRGB.LEDControllers;
-using KSP_LogiRGB.LEDControllers.Logitech;
-using KSP_LogiRGB.SceneManagers;
+using KeyShine.ColorSchemes;
+using KeyShine.Layout;
+using KeyShine.Layout.LayoutProviders.Windows;
+using KeyShine.LEDControllers;
+using KeyShine.LEDControllers.Logitech;
+using KeyShine.SceneManagers;
 using UnityEngine;
 
-namespace KSP_LogiRGB
+namespace KeyShine
 {
     /// <summary>
     ///     The main class, managing the keyboard appearance for every kind of scene KSP
     ///     uses.
     /// </summary>
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
-    public class KSPLogitechRGBPlugin : MonoBehaviour
+    public class KeyShine : MonoBehaviour
     {
-        public static KSPLogitechRGBPlugin Instance;
+        public static KeyShine Instance;
 
         public ILayoutProvider LayoutProvider { get; private set; }
 
@@ -49,9 +49,9 @@ namespace KSP_LogiRGB
         private void Update()
         {
             ColorScheme scheme;
-            if (HighLogic.LoadedScene == GameScenes.FLIGHT)
+            /*if (HighLogic.LoadedScene == GameScenes.FLIGHT)
             {
-                /* removed to not spam console
+                removed to not spam console
                 var PartThermal = new List<PartThermalData>();
 
                 foreach (var p in FlightGlobals.fetch.activeVessel.parts)
@@ -75,10 +75,11 @@ namespace KSP_LogiRGB
                 {
                                        
                 }
-                */
+                
                 
                 print(FlightGlobals.fetch.activeVessel.CurrentControlLevel);
             }
+            */
             if (AnimationManager.Instance.animationRunning())
             {
                 scheme = AnimationManager.Instance.getFrame();

@@ -1,6 +1,6 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 
-namespace KSP_LogiRGB.SceneManagers
+namespace KeyShine.SceneManagers
 {
     /// <summary>
     ///     Allows creation of keyboard color managers for multiple scenes.

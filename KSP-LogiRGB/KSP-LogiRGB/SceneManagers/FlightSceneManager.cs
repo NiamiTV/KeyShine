@@ -1,11 +1,11 @@
 ﻿using KSP.UI.Screens;
-using KSP_LogiRGB.ColorSchemes;
+using KeyShine.ColorSchemes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace KSP_LogiRGB.SceneManagers
+namespace KeyShine.SceneManagers
 {
     /// <summary>
     ///     Manages the keyboard colors during all flight scenes.

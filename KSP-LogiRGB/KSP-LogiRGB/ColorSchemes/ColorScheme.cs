@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KSP_LogiRGB.ColorSchemes
+namespace KeyShine.ColorSchemes
 {
     /// <summary>
     ///     A color scheme that defines multiple layers of colours to be set to a keyboard.

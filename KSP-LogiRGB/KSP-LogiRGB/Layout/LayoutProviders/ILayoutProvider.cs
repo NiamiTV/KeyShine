@@ -16,7 +16,7 @@
 
 using UnityEngine;
 
-namespace KSP_LogiRGB.Layout
+namespace KeyShine.Layout
 {
     public interface ILayoutProvider
     {

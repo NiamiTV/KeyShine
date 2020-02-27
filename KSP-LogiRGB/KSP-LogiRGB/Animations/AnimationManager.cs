@@ -1,6 +1,6 @@
-﻿using KSP_LogiRGB.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
 
-namespace KSP_LogiRGB
+namespace KeyShine
 {
     /// <summary>
     ///     Handles all animations to avoid confusion and multiple animations running at the same time.

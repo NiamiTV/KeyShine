@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace KSP_LogiRGB.LEDControllers.Logitech
+namespace KeyShine.LEDControllers.Logitech
 {
     public static class LogitechSDK
     {
