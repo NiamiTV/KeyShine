@@ -43,7 +43,10 @@ namespace KeyShine
         /// </summary>
         /// 
 
-      
+        public static void extPrint(string stronk)
+        {
+            print(stronk);
+        }
 
 
         private void Update()

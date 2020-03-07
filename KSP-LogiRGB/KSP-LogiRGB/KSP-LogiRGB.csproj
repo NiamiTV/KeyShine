@@ -88,9 +88,6 @@
     <Compile Include="SceneManagers\VABSceneManager.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Compile Include="LEDControllers\Corsair\CUESDK.x64_2017.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll" "D:\SteamLibrary\steamapps\common\Kerbal Space Program\GameData\KeyShine"</PostBuildEvent>

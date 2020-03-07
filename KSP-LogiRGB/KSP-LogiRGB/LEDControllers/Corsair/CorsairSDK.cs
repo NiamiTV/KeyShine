@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace KeyShine.LEDControllers.Corsair
@@ -144,24 +141,24 @@ namespace KeyShine.LEDControllers.Corsair
             G8 = 128,
             G9 = 129,
             G10 = 130,
-            Lang2 = 64,          
+            Lang2 = 64,
             Lang1 = 66,
-            International2 = 67,                     
+            International2 = 67,
             LedProgramming = 71,
-            Brightness = 72,                       
+            Brightness = 72,
             International1 = 84,
-            International3 = 86,           
+            International3 = 86,
             WinLock = 97,
             Mute = 98,
             Stop = 99,
             ScanPreviousTrack = 100,
             PlayPause = 101,
             ScanNextTrack = 102,
-            NumPlus = 107,         
+            NumPlus = 107,
             NumSeven = 109,
             NumEight = 110,
             NumNine = 111,
-            NumComma = 112,      
+            NumComma = 112,
             VolumeUp = 131,
             VolumeDown = 132,
             MR = 133,
@@ -183,7 +180,116 @@ namespace KeyShine.LEDControllers.Corsair
 
         };
 
-        [DllImport("CUESDK.x64_2017.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CorsairSetLedsColors(int size, CorsairLedColor[] ledColor);
+        public delegate void CorsairLedSetLedsColors(int length, CorsairLedColor[] colors);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hReservedNull, uint dwFlags);
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool FreeLibrary(IntPtr hModule);
+
+        private static IntPtr _dllHandle = IntPtr.Zero;
+        private static CorsairLedSetLedsColors _CorsairSetLedsColors;
+
+
+
+
+        public static string DllPath
+        {
+            get
+            {
+                var platform = IntPtr.Size == 8 ? ".x64" : "";
+                var dllDir = Path.GetDirectoryName(
+                    new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+                Debug.Assert(dllDir != null, nameof(dllDir) + " != null");
+                var apiDir = Path.Combine(dllDir, "Corsair");
+                return Path.Combine(apiDir, "CUESDK" + platform + "_2017.dll");
+            }
+        }
+
+
+        public static bool Init()
+        {
+            // Handle the case when the library is already loaded.
+            if (_dllHandle != IntPtr.Zero)
+            {
+                return true;
+            }
+
+            _dllHandle = LoadLibraryEx(DllPath, IntPtr.Zero, 0);
+            if (_dllHandle == IntPtr.Zero)
+            {
+                return false;
+            }
+            /*
+            var initAddress = GetProcAddress(_dllHandle, "LogiLedInit");
+            if (initAddress == IntPtr.Zero)
+            {
+                Shutdown();
+                return false;
+            }
+
+            if (!success)
+            {
+                Shutdown();
+            }
+            */
+            var CorsairSetLedsColorsAddr =
+                GetProcAddress(_dllHandle, "CorsairSetLedsColors");
+
+
+            if (CorsairSetLedsColorsAddr == IntPtr.Zero)
+            {
+                Shutdown();
+                return false;
+            }
+
+
+
+            _CorsairSetLedsColors =
+                (CorsairLedSetLedsColors)Marshal.GetDelegateForFunctionPointer(CorsairSetLedsColorsAddr,
+                    typeof(CorsairLedSetLedsColors));
+
+
+
+            if (_CorsairSetLedsColors == null)
+            {
+                Shutdown();
+                return false;
+            }
+
+
+            return true;
+        }
+
+        public static void CorsairSetLedsColors(int length, CorsairLedColor[] colors)
+        {
+            _CorsairSetLedsColors.Invoke(length, colors);
+        }
+
+
+        public static void Shutdown()
+        {
+            if (_dllHandle != IntPtr.Zero)
+            {
+                //_shutdown?.Invoke();
+
+                //_shutdown = null;
+                //_setTargetDevice = null;
+                _CorsairSetLedsColors = null;
+                //  _setLightingForKeyName = null;
+
+                FreeLibrary(_dllHandle);
+                _dllHandle = IntPtr.Zero;
+            }
+        }
+        //[DllImport(, CallingConvention = CallingConvention.Cdecl)]
+        //public static extern void CorsairSetLedsColorsx64(int size, CorsairLedColor[] ledColor);
+
+        //[DllImport(@"Corsair\CUESDK_2017.dll", CallingConvention = CallingConvention.Cdecl)]
+        //public static extern void CorsairSetLedsColors(int size, CorsairLedColor[] ledColor);
     }
 }

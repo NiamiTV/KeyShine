@@ -1,7 +1,6 @@
 ﻿using KeyShine.ColorSchemes;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using static KeyShine.LEDControllers.Corsair.CorsairSDK;
 
@@ -157,7 +156,12 @@ namespace KeyShine.LEDControllers.Corsair
 
         public void Send(ColorScheme colorScheme)
         {
+            ApplyToKeyboard(colorScheme);
+        }
 
+        public CorsairLEDController()
+        {
+            Init();
         }
 
         public static CorsairLedId KeyCodeToScanCode(KeyCode code)
@@ -167,7 +171,7 @@ namespace KeyShine.LEDControllers.Corsair
 
         public void ApplyToKeyboard(ColorScheme colorScheme)
         {
-            
+
 
             /*
             //foreach (CorsairLedId key in Enum.GetValues(typeof(CorsairLedId)))
@@ -199,37 +203,59 @@ namespace KeyShine.LEDControllers.Corsair
             ColorList.Add(key);
             */
 
-            List<CorsairLedColor> ColorList = new List<CorsairLedColor>();
-            var colorMap = new Dictionary<CorsairLedId, CorsairLedId>();
 
-            foreach (CorsairLedId key in Enum.GetValues(typeof(CorsairLedId)))
-            {
-                ColorList.Add(new CorsairLedColor(key, colorScheme.BaseColor));
-            }
-            foreach (var key in colorScheme.AbsoluteKeys)
-            {
-                ColorList.Add(new CorsairLedColor(KeyCodeToScanCode(key.Key),key.Value));
-            }
-            foreach (var key in colorScheme.MappedKeys)
-            {
-                var qwertyKey = KeyShine.Instance.LayoutProvider.ConvertToQwertyCode(key.Key);
+            //List<CorsairLedColor> ColorList = new List<CorsairLedColor>();
+            var colorMap = new Dictionary<CorsairLedId, Color32>();
 
-                if (KeyMapping.ContainsKey(qwertyKey))
+            
+            try
+            {
+                foreach (CorsairLedId key in Enum.GetValues(typeof(CorsairLedId)))
                 {
-                    ColorList.Add(new CorsairLedColor(KeyCodeToScanCode(key.Key), key.Value));
+                    //ColorList.Add(new CorsairLedColor(key, colorScheme.BaseColor));
+                    colorMap.Add(key, colorScheme.BaseColor);
                 }
+                foreach (var key in colorScheme.AbsoluteKeys)
+                {
+                    //ColorList.Add(new CorsairLedColor(KeyCodeToScanCode(key.Key), key.Value));
+                    colorMap[KeyCodeToScanCode(key.Key)] = key.Value;
+                }
+                foreach (var key in colorScheme.MappedKeys)
+                {
+                    var qwertyKey = KeyShine.Instance.LayoutProvider.ConvertToQwertyCode(key.Key);
+
+                    if (KeyMapping.ContainsKey(qwertyKey))
+                    {
+                        //ColorList.Add(new CorsairLedColor(KeyCodeToScanCode(key.Key), key.Value));
+                        colorMap[KeyCodeToScanCode(key.Key)] = key.Value;
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                KeyShine.extPrint(e.Message);
             }
 
-            CorsairLedId[] ColorMap = new CorsairLedId[157];
 
-
-
-            CorsairSDK.CorsairSetLedsColors();
-
-               
+            CorsairLedColor[] ColorMapOut = new CorsairLedColor[157];
+            var ii = 0;
+            foreach (CorsairLedId led in Enum.GetValues(typeof(CorsairLedId)))
+            {
+                ColorMapOut[ii] = new CorsairLedColor(led,new Color32(255,0,0,0));
             }
+
+
+
+            CorsairSetLedsColors(ColorMapOut.Length,ColorMapOut);
+
+            //CorsairSDK.CorsairSetLedsColors();
+
+
         }
-
-       
     }
+
+
 }
+
