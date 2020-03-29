@@ -45,9 +45,9 @@ namespace KeyShine
         /// </summary>
         /// 
 
-        public static void extPrint(string stronk)
+        public static void extPrint(string input)
         {
-            print(stronk);
+            print(input);
         }
 
 
