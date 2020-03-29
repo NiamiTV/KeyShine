@@ -241,9 +241,10 @@ namespace KeyShine.LEDControllers.Corsair
 
             CorsairLedColor[] ColorMapOut = new CorsairLedColor[157];
             var ii = 0;
-            foreach (CorsairLedId led in Enum.GetValues(typeof(CorsairLedId)))
+            foreach (CorsairLedId led in colorMap.Keys)
             {
-                ColorMapOut[ii] = new CorsairLedColor(led,new Color32(255,0,0,0));
+                ColorMapOut[ii] = new CorsairLedColor(led, colorMap[led]);
+                ii++;
             }
 
 

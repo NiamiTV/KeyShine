@@ -1,5 +1,5 @@
-﻿using KSP.UI.Screens;
-using KeyShine.ColorSchemes;
+﻿using KeyShine.ColorSchemes;
+using KSP.UI.Screens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,7 +125,7 @@ namespace KeyShine.SceneManagers
         ///     that has any active parts gets a toggleing button lit up.
         /// </summary>
         private void findUsableActionGroups()
-        {          
+        {
             var allActionsList = new List<BaseAction>();
 
             foreach (var p in currentVessel.parts)
@@ -172,7 +172,7 @@ namespace KeyShine.SceneManagers
         private void getOverheat()
         {
             var allPartsTempRatio = new List<double>();
-            
+
             foreach (var p in currentVessel.parts)
             {
                 allPartsTempRatio.Add(p.temperature / p.maxTemp);
@@ -184,8 +184,8 @@ namespace KeyShine.SceneManagers
             {
                 TempRatioAvg += item;
             }
-            TempRatioAvg /= allPartsTempRatio.Count;            
-        }   
+            TempRatioAvg /= allPartsTempRatio.Count;
+        }
 
 
 
@@ -196,10 +196,10 @@ namespace KeyShine.SceneManagers
         private void displayThrottle()
         {
             float throttle = currentVessel.ctrlState.mainThrottle;
-                        
+
             Color32 ThrottleUpColor = Config.Instance.ThrottleColour;
             Color32 ThrottleDownColor = Config.Instance.ThrottleColour;
-            
+
             ThrottleUpColor.r = (byte)(Config.Instance.ThrottleColour.r * throttle);
             ThrottleDownColor.r = (byte)(Config.Instance.ThrottleColour.r * (1f - throttle));
             ThrottleUpColor.g = (byte)(Config.Instance.ThrottleColour.g * throttle);
@@ -208,7 +208,7 @@ namespace KeyShine.SceneManagers
             ThrottleDownColor.b = (byte)(Config.Instance.ThrottleColour.b * (1f - throttle));
             ThrottleUpColor.a = 255;
             ThrottleDownColor.a = 255;
-            
+
             KeyCode ThrottleUp = GameSettings.THROTTLE_UP.primary.code;
             KeyCode ThrottleDown = GameSettings.THROTTLE_DOWN.primary.code;
 
@@ -273,7 +273,7 @@ namespace KeyShine.SceneManagers
                     KeyCode[] electric = { KeyCode.Print, KeyCode.ScrollLock, KeyCode.Pause };
                     if (amount / maxAmount < Config.Instance.LowResourceAlert && amount > 0.001)
                     {
-                        displayFuelAlert(electric, Color.blue);                     
+                        displayFuelAlert(electric, Color.blue);
                     }
                     else
                     {
@@ -505,15 +505,26 @@ namespace KeyShine.SceneManagers
         /// <returns></returns>
         private double GetDistanceFromGround()
         {
-            if (currentVessel.GetHeightFromTerrain() < 1)
+            if (currentVessel.altimeterDisplayState == AltimeterDisplayState.ASL)
             {
-                return 0;
+                if (currentVessel.GetHeightFromTerrain() == -1)
+                {
+                    return currentVessel.GetOrbit().altitude;
+                }
+                return currentVessel.altitude;
             }
-            if (currentVessel.GetHeightFromTerrain() == -1)
+            else
             {
-                return currentVessel.GetOrbit().altitude;
+                if (currentVessel.GetHeightFromTerrain() < 1)
+                {
+                    return 0;
+                }
+                if (currentVessel.GetHeightFromTerrain() == -1)
+                {
+                    return currentVessel.GetOrbit().altitude;
+                }
+                return currentVessel.GetHeightFromTerrain();
             }
-            return currentVessel.GetHeightFromTerrain();
         }
     }
 }
